@@ -1,0 +1,2481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GK & PSC Quiz - Test Your Knowledge</title>
+    <!-- Link to external stylesheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Initial Authentication Gatekeeper Loader -->
+    <div id="auth-loading-screen" class="auth-loading-screen">
+        <div class="auth-loading-card">
+            <div class="auth-loading-spinner"></div>
+            <div class="logo">
+                <span class="logo-icon">🧠</span>
+                <span class="logo-text">GK & PSC Quiz</span>
+            </div>
+            <p class="auth-loading-text">Verifying session...</p>
+        </div>
+    </div>
+
+    <!-- ================= DEDICATED FULL-PAGE AUTHENTICATION SCREEN ================= -->
+    <div id="auth-page" class="auth-page-container hidden">
+        <div class="auth-page-header">
+            <div class="logo">
+                <span class="logo-icon">🧠</span>
+                <span class="logo-text">GK & PSC Quiz</span>
+            </div>
+            <button id="auth-theme-toggle-btn" class="theme-toggle-btn icon-only-btn" type="button" aria-label="Toggle Light and Dark Mode" title="Toggle Light / Dark Mode">
+                <span class="theme-toggle-icon" id="auth-theme-toggle-icon">🌙</span>
+                <span class="theme-toggle-text sr-only" id="auth-theme-toggle-text">Dark Mode</span>
+            </button>
+        </div>
+
+        <div class="auth-card-wrapper">
+            <div class="auth-brand-info">
+                <span class="auth-welcome-badge">🎓 PSC Aspirant Hub</span>
+                <h2>Kerala PSC Exam Preparation & GK Portal</h2>
+                <p>Sign in to access your customized dashboard, practice tests, previous year question bank, and performance analytics.</p>
+            </div>
+
+            <div class="auth-box-card">
+                <!-- Tab Switcher -->
+                <div class="auth-tabs" id="auth-tabs" role="tablist">
+                    <button id="tab-signin-btn" class="auth-tab active" role="tab" aria-selected="true" type="button">Sign In</button>
+                    <button id="tab-signup-btn" class="auth-tab" role="tab" aria-selected="false" type="button">Create Account</button>
+                </div>
+
+                <!-- Alert Message Banner -->
+                <div id="auth-alert" class="auth-alert hidden" role="alert">
+                    <span id="auth-alert-icon" class="auth-alert-icon">⚠️</span>
+                    <span id="auth-alert-msg" class="auth-alert-msg"></span>
+                </div>
+
+                <!-- 1. Sign In Form -->
+                <form id="form-signin" class="auth-form" autocomplete="on">
+                    <div class="auth-form-group">
+                        <label for="signin-email" class="auth-form-label">Email Address</label>
+                        <div class="auth-input-wrapper">
+                            <span class="auth-input-icon">✉️</span>
+                            <input type="email" id="signin-email" class="auth-input" placeholder="name@example.com" required autocomplete="email">
+                        </div>
+                    </div>
+
+                    <div class="auth-form-group">
+                        <div class="auth-label-row">
+                            <label for="signin-password" class="auth-form-label">Password</label>
+                            <button type="button" id="forgot-password-link" class="auth-link-btn">Forgot password?</button>
+                        </div>
+                        <div class="auth-input-wrapper">
+                            <span class="auth-input-icon">🔒</span>
+                            <input type="password" id="signin-password" class="auth-input" placeholder="Enter your password" required autocomplete="current-password">
+                            <button type="button" class="password-toggle-btn" data-target="signin-password" aria-label="Toggle password visibility" title="Show/Hide Password">👁️</button>
+                        </div>
+                    </div>
+
+                    <button type="submit" id="signin-submit-btn" class="action-btn primary-btn auth-submit-btn">
+                        <span class="auth-spinner hidden" id="signin-spinner"></span>
+                        <span class="btn-text" id="signin-btn-text">Sign In to Dashboard ➔</span>
+                    </button>
+
+                    <p class="auth-switch-prompt">
+                        New to GK & PSC Quiz? <button type="button" id="switch-to-signup-btn" class="auth-link-btn">Create an account</button>
+                    </p>
+                </form>
+
+                <!-- 2. Create Account (Sign Up) Form -->
+                <form id="form-signup" class="auth-form hidden" autocomplete="on">
+                    <div class="auth-form-group">
+                        <label for="signup-email" class="auth-form-label">Email Address</label>
+                        <div class="auth-input-wrapper">
+                            <span class="auth-input-icon">✉️</span>
+                            <input type="email" id="signup-email" class="auth-input" placeholder="name@example.com" required autocomplete="email">
+                        </div>
+                    </div>
+
+                    <div class="auth-form-group">
+                        <label for="signup-password" class="auth-form-label">Create Password</label>
+                        <div class="auth-input-wrapper">
+                            <span class="auth-input-icon">🔒</span>
+                            <input type="password" id="signup-password" class="auth-input" placeholder="At least 6 characters" minlength="6" required autocomplete="new-password">
+                            <button type="button" class="password-toggle-btn" data-target="signup-password" aria-label="Toggle password visibility" title="Show/Hide Password">👁️</button>
+                        </div>
+                        <span class="auth-input-hint">Password must contain at least 6 characters</span>
+                    </div>
+
+                    <div class="auth-form-group">
+                        <label for="signup-confirm-password" class="auth-form-label">Confirm Password</label>
+                        <div class="auth-input-wrapper">
+                            <span class="auth-input-icon">🛡️</span>
+                            <input type="password" id="signup-confirm-password" class="auth-input" placeholder="Re-enter your password" minlength="6" required autocomplete="new-password">
+                            <button type="button" class="password-toggle-btn" data-target="signup-confirm-password" aria-label="Toggle password visibility" title="Show/Hide Password">👁️</button>
+                        </div>
+                    </div>
+
+                    <button type="submit" id="signup-submit-btn" class="action-btn primary-btn auth-submit-btn">
+                        <span class="auth-spinner hidden" id="signup-spinner"></span>
+                        <span class="btn-text" id="signup-btn-text">Create Account & Enter ➔</span>
+                    </button>
+
+                    <p class="auth-switch-prompt">
+                        Already have an account? <button type="button" id="switch-to-signin-btn" class="auth-link-btn">Sign In</button>
+                    </p>
+                </form>
+
+                <!-- 3. Password Reset Form -->
+                <form id="form-reset" class="auth-form hidden" autocomplete="on">
+                    <p class="auth-reset-desc">Enter your account email address and we'll send you a password reset link.</p>
+                    <div class="auth-form-group">
+                        <label for="reset-email" class="auth-form-label">Account Email</label>
+                        <div class="auth-input-wrapper">
+                            <span class="auth-input-icon">✉️</span>
+                            <input type="email" id="reset-email" class="auth-input" placeholder="name@example.com" required autocomplete="email">
+                        </div>
+                    </div>
+
+                    <button type="submit" id="reset-submit-btn" class="action-btn primary-btn auth-submit-btn">
+                        <span class="auth-spinner hidden" id="reset-spinner"></span>
+                        <span class="btn-text" id="reset-btn-text">Send Reset Link</span>
+                    </button>
+
+                    <button type="button" id="back-to-signin-btn" class="auth-back-btn">
+                        ← Back to Sign In
+                    </button>
+                </form>
+
+                <!-- Footer Security Badge -->
+                <div class="auth-card-footer">
+                    <span class="auth-footer-note">🔒 Secured with Firebase Authentication</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= MAIN QUIZ APPLICATION (GUARDED) ================= -->
+    <div class="app-container hidden" id="app-container">
+        
+        <!-- App Header -->
+        <header class="app-header">
+            <div class="header-content-bar">
+                <div class="logo">
+                    <span class="logo-icon">🧠</span>
+                    <span class="logo-text">GK & PSC Quiz</span>
+                </div>
+                <div class="header-actions">
+                    <!-- Icon-Only Theme Toggle -->
+                    <button id="theme-toggle-btn" class="theme-toggle-btn icon-only-btn" type="button" aria-label="Toggle Light and Dark Mode" title="Toggle Light / Dark Mode">
+                        <span class="theme-toggle-icon" id="theme-toggle-icon">🌙</span>
+                        <span class="theme-toggle-text sr-only" id="theme-toggle-text">Dark Mode</span>
+                    </button>
+
+                    <!-- Interactive User Profile Dropdown Section -->
+                    <div class="profile-menu-container" id="profile-menu-container">
+                        <button id="profile-toggle-btn" class="profile-toggle-btn" type="button" aria-label="User Profile Menu" aria-haspopup="true" aria-expanded="false" title="Account & Profile">
+                            <span class="profile-btn-avatar" id="header-avatar-icon">👤</span>
+                        </button>
+
+                        <!-- Floating Profile Dropdown Card -->
+                        <div class="profile-dropdown-card hidden" id="profile-dropdown-card" role="dialog" aria-label="User Profile Details">
+                            <!-- Card Header Info -->
+                            <div class="profile-card-header">
+                                <div class="profile-avatar-large" id="profile-avatar-large">👤</div>
+                                <div class="profile-header-info">
+                                    <h3 class="profile-display-name" id="profile-display-name">Aspirant</h3>
+                                    <span class="profile-display-email" id="profile-display-email">user@example.com</span>
+                                    <span class="profile-role-badge">🎓 PSC Aspirant</span>
+                                </div>
+                            </div>
+
+                            <!-- View Mode: Shows Details & Edit Trigger -->
+                            <div class="profile-view-section" id="profile-view-section">
+                                <div class="profile-data-row">
+                                    <span class="profile-data-label">Display Name</span>
+                                    <span class="profile-data-value" id="profile-view-name">Aspirant</span>
+                                </div>
+                                <div class="profile-data-row">
+                                    <span class="profile-data-label">Email Account</span>
+                                    <span class="profile-data-value" id="profile-view-email">user@example.com</span>
+                                </div>
+                                <button type="button" id="profile-edit-btn" class="profile-action-btn edit-btn">
+                                    <span>✏️</span> Edit Profile
+                                </button>
+                            </div>
+
+                            <!-- Edit Mode: Form for Editing Display Name & Avatar -->
+                            <form id="profile-edit-form" class="profile-edit-form hidden">
+                                <div class="profile-form-group">
+                                    <label for="profile-name-input" class="profile-form-label">Display Name</label>
+                                    <input type="text" id="profile-name-input" class="profile-form-input" placeholder="Enter your name" maxlength="32" required>
+                                </div>
+
+                                <div class="profile-form-group">
+                                    <label class="profile-form-label">Choose Avatar</label>
+                                    <div class="avatar-options" id="avatar-options">
+                                        <button type="button" class="avatar-option-btn active" data-avatar="👤">👤</button>
+                                        <button type="button" class="avatar-option-btn" data-avatar="🎓">🎓</button>
+                                        <button type="button" class="avatar-option-btn" data-avatar="🧠">🧠</button>
+                                        <button type="button" class="avatar-option-btn" data-avatar="🦁">🦁</button>
+                                        <button type="button" class="avatar-option-btn" data-avatar="⚡">⚡</button>
+                                        <button type="button" class="avatar-option-btn" data-avatar="🌟">🌟</button>
+                                        <button type="button" class="avatar-option-btn" data-avatar="🦉">🦉</button>
+                                        <button type="button" class="avatar-option-btn" data-avatar="🚀">🚀</button>
+                                    </div>
+                                </div>
+
+                                <div class="profile-edit-actions">
+                                    <button type="button" id="profile-cancel-edit-btn" class="profile-cancel-btn">Cancel</button>
+                                    <button type="submit" id="profile-save-btn" class="profile-save-btn">
+                                        <span class="auth-spinner hidden" id="profile-save-spinner"></span>
+                                        <span id="profile-save-text">Save Changes</span>
+                                    </button>
+                                </div>
+                                <div id="profile-feedback" class="profile-feedback hidden"></div>
+                            </form>
+
+                            <div class="profile-divider"></div>
+
+                            <!-- Card Footer: Dedicated Sign Out Action -->
+                            <div class="profile-card-footer">
+                                <button id="main-signout-btn" class="profile-signout-btn" type="button" title="Sign out of your account">
+                                    <span class="signout-icon">🚪</span>
+                                    <span>Log Out</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <p class="tagline">Exam preparation and general knowledge trivia platform</p>
+        </header>
+
+        <!-- Main Navigation Bar -->
+        <nav class="app-nav" id="app-nav" aria-label="Main Navigation">
+            <button class="nav-btn active" data-target="dashboard" id="nav-dashboard">
+                <span class="nav-icon">📊</span>
+                <span class="nav-label">Dashboard</span>
+            </button>
+            <button class="nav-btn" data-target="practice" id="nav-practice">
+                <span class="nav-icon">✏️</span>
+                <span class="nav-label">Practice</span>
+            </button>
+            <button class="nav-btn" data-target="pyq-bank" id="nav-pyq-bank">
+                <span class="nav-icon">📝</span>
+                <span class="nav-label">PYQ Bank</span>
+            </button>
+            <button class="nav-btn" data-target="categories" id="nav-categories">
+                <span class="nav-icon">📚</span>
+                <span class="nav-label">Categories</span>
+            </button>
+            <button class="nav-btn" data-target="results" id="nav-results">
+                <span class="nav-icon">🏆</span>
+                <span class="nav-label">Results</span>
+            </button>
+        </nav>
+
+        <main class="quiz-card">
+
+            <!-- ================= SCREEN 0: DASHBOARD SCREEN ================= -->
+            <section id="dashboard-screen" class="screen-view active">
+                
+                <!-- Student Welcome Section -->
+                <div class="dash-welcome-card">
+                    <div class="dash-welcome-text">
+                        <h2>Kerala PSC Aspirant Hub 🎓</h2>
+                        <p>Track your preparation progress, analyze subject strengths, and build your daily practice habit.</p>
+                        <div id="dash-auth-banner" class="dash-auth-banner">
+                            <span id="dash-auth-text" class="dash-auth-text">👋 Welcome, Aspirant! <button type="button" id="dash-signin-btn" class="text-link-btn">Sign in</button> to track your progress.</span>
+                        </div>
+                    </div>
+                    <button id="dash-start-practice-btn" class="action-btn primary-btn">
+                        <span>🚀 Start Practice Quiz</span>
+                    </button>
+                </div>
+
+                <!-- KPI Overview Grid -->
+                <div class="kpi-grid">
+                    <div class="kpi-card">
+                        <div class="kpi-icon-wrap icon-blue">📝</div>
+                        <div class="kpi-info">
+                            <span class="kpi-value" id="kpi-total-questions">0</span>
+                            <span class="kpi-label">Questions Attempted</span>
+                        </div>
+                    </div>
+                    <div class="kpi-card">
+                        <div class="kpi-icon-wrap icon-green">🎯</div>
+                        <div class="kpi-info">
+                            <span class="kpi-value" id="kpi-accuracy">0%</span>
+                            <span class="kpi-label">Overall Accuracy</span>
+                        </div>
+                    </div>
+                    <div class="kpi-card">
+                        <div class="kpi-icon-wrap icon-purple">✅</div>
+                        <div class="kpi-info">
+                            <span class="kpi-value" id="kpi-total-quizzes">0</span>
+                            <span class="kpi-label">Quizzes Completed</span>
+                        </div>
+                    </div>
+                    <div class="kpi-card">
+                        <div class="kpi-icon-wrap icon-amber">🏆</div>
+                        <div class="kpi-info">
+                            <span class="kpi-value" id="kpi-best-score">0%</span>
+                            <span class="kpi-label">Best Score</span>
+                        </div>
+                    </div>
+                    <div class="kpi-card">
+                        <div class="kpi-icon-wrap icon-red">🔥</div>
+                        <div class="kpi-info">
+                            <span class="kpi-value" id="kpi-streak">0 Days</span>
+                            <span class="kpi-label">Practice Streak</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Difficulty-wise Performance Section -->
+                <div class="dash-section">
+                    <div class="dash-section-header">
+                        <h3>⚡ Performance by Difficulty</h3>
+                        <span class="section-subtext">Accuracy and attempts by question level</span>
+                    </div>
+                    <div class="diff-performance-grid">
+                        <div class="diff-card easy-card">
+                            <div class="diff-card-top">
+                                <span class="diff-badge easy">🌱 Easy</span>
+                                <span class="diff-accuracy-num" id="diff-accuracy-easy">0%</span>
+                            </div>
+                            <div class="progress-track sm">
+                                <div class="progress-fill easy-fill" id="diff-bar-easy" style="width: 0%;"></div>
+                            </div>
+                            <span class="diff-card-sub" id="diff-count-easy">0 / 0 correct (0 quizzes)</span>
+                        </div>
+
+                        <div class="diff-card medium-card">
+                            <div class="diff-card-top">
+                                <span class="diff-badge medium">⚡ Medium</span>
+                                <span class="diff-accuracy-num" id="diff-accuracy-medium">0%</span>
+                            </div>
+                            <div class="progress-track sm">
+                                <div class="progress-fill medium-fill" id="diff-bar-medium" style="width: 0%;"></div>
+                            </div>
+                            <span class="diff-card-sub" id="diff-count-medium">0 / 0 correct (0 quizzes)</span>
+                        </div>
+
+                        <div class="diff-card hard-card">
+                            <div class="diff-card-top">
+                                <span class="diff-badge hard">🔥 Hard</span>
+                                <span class="diff-accuracy-num" id="diff-accuracy-hard">0%</span>
+                            </div>
+                            <div class="progress-track sm">
+                                <div class="progress-fill hard-fill" id="diff-bar-hard" style="width: 0%;"></div>
+                            </div>
+                            <span class="diff-card-sub" id="diff-count-hard">0 / 0 correct (0 quizzes)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Category-wise Performance Section -->
+                <div class="dash-section">
+                    <div class="dash-section-header">
+                        <h3>📚 Subject-Wise Accuracy</h3>
+                        <span class="section-subtext">Progress across core PSC syllabus subjects</span>
+                    </div>
+                    <div class="category-performance-grid" id="category-stats-container">
+                        <!-- Rendered dynamically by JavaScript based on actual practice data -->
+                    </div>
+                </div>
+
+                <!-- Recent Quiz Attempts Section -->
+                <div class="dash-section">
+                    <div class="dash-section-header with-action">
+                        <div>
+                            <h3>🕒 Recent Quiz Attempts</h3>
+                            <span class="section-subtext">Your latest practice sessions</span>
+                        </div>
+                        <button id="clear-history-btn" class="text-btn danger-text" title="Reset all saved practice statistics">
+                            <span>🗑️ Reset Data</span>
+                        </button>
+                    </div>
+
+                    <!-- Attempts List Container -->
+                    <div id="recent-attempts-container" class="recent-attempts-container">
+                        <!-- Rendered dynamically by JavaScript -->
+                    </div>
+                </div>
+
+            </section>
+
+            <!-- ================= SCREEN 1: PRACTICE (HOME) SCREEN ================= -->
+            <section id="home-screen" class="screen-view hidden">
+                <div class="welcome-box">
+                    <h2>PSC Practice Sessions</h2>
+                    <p class="welcome-desc">
+                        Sharpen your general knowledge and prepare for competitive exams. Select a difficulty level below to begin.
+                    </p>
+                </div>
+
+                <div class="difficulty-section">
+                    <h3 class="difficulty-title">Choose Your Difficulty</h3>
+                    <div class="difficulty-grid">
+                        
+                        <!-- Easy Level Option -->
+                        <button class="difficulty-btn easy" data-difficulty="easy">
+                            <div class="diff-header">
+                                <span class="diff-icon">🌱</span>
+                                <span class="diff-name">Easy</span>
+                            </div>
+                            <p class="diff-desc">Fundamental questions for beginners and quick practice.</p>
+                            <span class="diff-tag">10 Questions • Beginner</span>
+                        </button>
+
+                        <!-- Medium Level Option -->
+                        <button class="difficulty-btn medium" data-difficulty="medium">
+                            <div class="diff-header">
+                                <span class="diff-icon">⚡</span>
+                                <span class="diff-name">Medium</span>
+                            </div>
+                            <p class="diff-desc">Standard PSC exam-level questions covering history, constitution, and science.</p>
+                            <span class="diff-tag">10 Questions • Intermediate</span>
+                        </button>
+
+                        <!-- Hard Level Option -->
+                        <button class="difficulty-btn hard" data-difficulty="hard">
+                            <div class="diff-header">
+                                <span class="diff-icon">🔥</span>
+                                <span class="diff-name">Hard</span>
+                            </div>
+                            <p class="diff-desc">Challenging questions designed for advanced PSC exam aspirants.</p>
+                            <span class="diff-tag">10 Questions • Advanced</span>
+                        </button>
+
+                    </div>
+                </div>
+
+                <!-- Quick Rules / Tips -->
+                <div class="rules-card">
+                    <h4>💡 Exam Guidelines:</h4>
+                    <ul>
+                        <li>Questions and answer choices are randomly shuffled each session.</li>
+                        <li>Time limit: <strong>1 minute per question</strong> (e.g., 10 questions = 10 minutes).</li>
+                        <li>Instant feedback is shown after answering each question.</li>
+                        <li>When the timer reaches zero, the quiz will automatically submit.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- ================= SCREEN 2: QUIZ SCREEN ================= -->
+            <section id="quiz-screen" class="screen-view hidden">
+                
+                <!-- Quiz Status Bar -->
+                <div class="quiz-top-bar">
+                    <span id="difficulty-badge" class="badge">Easy</span>
+                    
+                    <!-- Countdown Timer Display -->
+                    <div id="timer-badge" class="timer-badge" title="Time remaining">
+                        <span class="timer-icon">⏱️</span>
+                        <span id="timer-display" class="timer-text">10:00</span>
+                    </div>
+
+                    <span id="question-counter" class="counter-text">Question 1 of 10</span>
+                    <span id="score-display" class="score-text">Score: <strong>0</strong></span>
+                </div>
+
+                <!-- Progress Bar -->
+                <div class="progress-track" aria-label="Quiz Progress">
+                    <div id="progress-bar" class="progress-fill"></div>
+                </div>
+
+                <!-- Question Area -->
+                <div class="question-container">
+                    <div class="question-meta">
+                        <span id="question-category" class="category-badge">General Knowledge</span>
+                    </div>
+                    <h2 id="question-text" class="question-text">Loading question...</h2>
+                </div>
+
+                <!-- Multiple-choice Options Container -->
+                <div id="options-container" class="options-grid">
+                    <!-- 4 randomized options will be generated dynamically by JavaScript -->
+                </div>
+
+                <!-- Feedback Banner -->
+                <div id="feedback-banner" class="feedback-banner hidden" aria-live="polite">
+                    <span id="feedback-icon" class="feedback-icon"></span>
+                    <span id="feedback-text" class="feedback-text"></span>
+                </div>
+
+                <!-- Action Footer -->
+                <div class="quiz-footer">
+                    <button id="next-btn" class="action-btn primary-btn hidden" disabled>
+                        <span>Next Question</span>
+                        <span class="arrow-icon">➔</span>
+                    </button>
+                </div>
+            </section>
+
+            <!-- ================= SCREEN 3: RESULT SCREEN ================= -->
+            <section id="result-screen" class="screen-view hidden">
+                
+                <!-- SECTION 3A: LATEST QUIZ COMPLETION SUMMARY (Shown when a quiz is completed) -->
+                <div id="latest-quiz-completion" class="latest-completion-wrapper hidden">
+                    <div class="result-header">
+                        <div class="result-trophy" id="result-trophy">🏆</div>
+                        <div id="timeout-banner" class="timeout-banner hidden">⚠️ Time Expired! Quiz automatically submitted.</div>
+                        <h2>Quiz Completed!</h2>
+                        <p id="result-message" class="result-message">Great effort!</p>
+                    </div>
+
+                    <!-- Result Score Card -->
+                    <div class="score-card">
+                        <div class="score-circle">
+                            <span id="final-percentage" class="percentage-value">0%</span>
+                            <span class="percentage-label">Accuracy</span>
+                        </div>
+
+                        <div class="score-details">
+                            <div class="score-detail-item">
+                                <span class="detail-label">Category</span>
+                                <span id="result-category" class="detail-value">General Knowledge</span>
+                            </div>
+                            <div class="score-detail-item">
+                                <span class="detail-label">Difficulty</span>
+                                <span id="result-difficulty" class="detail-value">Easy</span>
+                            </div>
+                            <div class="score-detail-item">
+                                <span class="detail-label">Correct Answers</span>
+                                <span id="correct-count" class="detail-value">0 / 10</span>
+                            </div>
+                            <div class="score-detail-item">
+                                <span class="detail-label">Points Earned</span>
+                                <span id="final-score" class="detail-value">0 pts</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Result Actions -->
+                    <div class="result-actions">
+                        <button id="restart-btn" class="action-btn primary-btn">
+                            <span>🔄 Restart Quiz</span>
+                        </button>
+                        <button id="result-cat-btn" class="action-btn secondary-btn">
+                            <span>📚 Back to Categories</span>
+                        </button>
+                        <button id="result-dash-btn" class="action-btn secondary-btn">
+                            <span>📊 View Dashboard</span>
+                        </button>
+                        <button id="home-btn" class="action-btn secondary-btn">
+                            <span>✏️ Practice Home</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- SECTION 3B: RESULTS SUMMARY ROW (Feature 4) -->
+                <div class="results-section-wrap">
+                    <div class="results-summary-row" id="results-summary-row">
+                        <div class="results-summary-card">
+                            <div class="res-summary-icon icon-purple">📊</div>
+                            <div class="res-summary-info">
+                                <span class="res-summary-val" id="res-total-quizzes">0</span>
+                                <span class="res-summary-lbl">Total Quizzes</span>
+                            </div>
+                        </div>
+                        <div class="results-summary-card">
+                            <div class="res-summary-icon icon-green">🎯</div>
+                            <div class="res-summary-info">
+                                <span class="res-summary-val" id="res-accuracy">0%</span>
+                                <span class="res-summary-lbl">Accuracy</span>
+                            </div>
+                        </div>
+                        <div class="results-summary-card">
+                            <div class="res-summary-icon icon-amber">⭐</div>
+                            <div class="res-summary-info">
+                                <span class="res-summary-val" id="res-total-points">0 pts</span>
+                                <span class="res-summary-lbl">Total Points</span>
+                            </div>
+                        </div>
+                        <div class="results-summary-card">
+                            <div class="res-summary-icon icon-red">🔥</div>
+                            <div class="res-summary-info">
+                                <span class="res-summary-val" id="res-streak">0 Days</span>
+                                <span class="res-summary-lbl">Current Streak</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- SECTION 3C: DAILY STREAK CARD (Feature 1) -->
+                    <div class="daily-streak-card" id="daily-streak-card">
+                        <div class="streak-card-top">
+                            <div class="streak-title-wrap">
+                                <div class="streak-flame-icon">🔥</div>
+                                <div>
+                                    <h3 class="streak-card-heading">Daily Streak</h3>
+                                    <p class="streak-subtitle" id="streak-quote-text">Start your streak today!</p>
+                                </div>
+                            </div>
+                            <div class="streak-counter-pill">
+                                <span class="streak-days-num" id="streak-display-count">0</span>
+                                <span class="streak-days-label">Days</span>
+                            </div>
+                        </div>
+
+                        <!-- 7-Day Activity Tracker -->
+                        <div class="streak-tracker-wrap">
+                            <div class="streak-tracker-label-row">
+                                <span>Weekly Practice Activity:</span>
+                                <span class="streak-hint-badge" id="streak-today-status">Today: Not yet practiced</span>
+                            </div>
+                            <div class="streak-week-tracker" id="streak-week-tracker">
+                                <!-- Rendered dynamically by JavaScript with Mon to Sun boxes -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- SECTION 3D: LEADERBOARD CARD (Feature 2) -->
+                    <div class="dash-section leaderboard-section">
+                        <div class="dash-section-header">
+                            <div>
+                                <h3>🏆 Leaderboard</h3>
+                                <span class="section-subtext">See how your score compares with other learners.</span>
+                            </div>
+                            <span class="leaderboard-badge">Practice Rankings</span>
+                        </div>
+
+                        <div class="leaderboard-card">
+                            <div class="leaderboard-table-responsive">
+                                <table class="leaderboard-table" id="leaderboard-table">
+                                    <thead>
+                                        <tr>
+                                            <th class="th-rank">Rank</th>
+                                            <th class="th-player">Player Name</th>
+                                            <th class="th-quizzes">Quizzes</th>
+                                            <th class="th-acc">Accuracy</th>
+                                            <th class="th-points">Points</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="leaderboard-body">
+                                        <!-- Rendered dynamically by JavaScript -->
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="leaderboard-footer-note">
+                                <span>🏆 Live rankings powered by Firebase Cloud Firestore. Practice daily to climb the leaderboard!</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- SECTION 3E: RECENT ACTIVITY (Feature 5) -->
+                    <div class="dash-section results-recent-section">
+                        <div class="dash-section-header">
+                            <div>
+                                <h3>🕒 Recent Activity</h3>
+                                <span class="section-subtext">Your latest quiz practice sessions</span>
+                            </div>
+                        </div>
+
+                        <div class="results-recent-container" id="results-recent-container">
+                            <!-- Rendered dynamically by JavaScript -->
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- ================= SCREEN 4: KERALA PSC PREVIOUS YEAR QUESTION BANK ================= -->
+            <section id="pyq-bank-screen" class="screen-view hidden">
+                
+                <!-- VIEW 4A: EXAM CATEGORY SELECTION -->
+                <div id="pyq-categories-view">
+                    <div class="welcome-box">
+                        <h2>Kerala PSC Previous Year Question Bank</h2>
+                        <p class="welcome-desc">
+                            Practice previous-year questions and improve your exam preparation.
+                        </p>
+                    </div>
+
+                    <div class="category-select-section">
+                        <div class="section-subtitle-bar">
+                            <h3 class="category-select-title">Select an Examination Level</h3>
+                            <span class="section-badge">6 Exam Levels</span>
+                        </div>
+
+                        <div class="category-select-grid" id="pyq-exam-cards-grid">
+                            <!-- 1. LDC -->
+                            <div class="category-select-card pyq-exam-card" data-exam-id="ldc" tabindex="0" role="button" aria-label="Select LDC Exam Papers">
+                                <div class="cat-card-header">
+                                    <span class="cat-card-icon">📝</span>
+                                    <span class="cat-card-chip syllabus-core">10th Level</span>
+                                </div>
+                                <h3 class="cat-card-title">📝 LDC</h3>
+                                <p class="cat-card-desc">Lower Division Clerk exams across all 14 Kerala districts.</p>
+                                <div class="cat-card-footer">
+                                    <span class="cat-card-count">2018 – 2025 Papers</span>
+                                    <span class="cat-card-action">Select Year →</span>
+                                </div>
+                            </div>
+
+                            <!-- 2. Degree Level -->
+                            <div class="category-select-card pyq-exam-card" data-exam-id="degree" tabindex="0" role="button" aria-label="Select Degree Level Exam Papers">
+                                <div class="cat-card-header">
+                                    <span class="cat-card-icon">🏛️</span>
+                                    <span class="cat-card-chip syllabus-core">Graduate</span>
+                                </div>
+                                <h3 class="cat-card-title">🏛️ Degree Level</h3>
+                                <p class="cat-card-desc">Secretariat Assistant, Sub Inspector, University Assistant & Company Board.</p>
+                                <div class="cat-card-footer">
+                                    <span class="cat-card-count">2018 – 2025 Papers</span>
+                                    <span class="cat-card-action">Select Year →</span>
+                                </div>
+                            </div>
+
+                            <!-- 3. 10th Level -->
+                            <div class="category-select-card pyq-exam-card" data-exam-id="tenth" tabindex="0" role="button" aria-label="Select 10th Level Common Prelims Papers">
+                                <div class="cat-card-header">
+                                    <span class="cat-card-icon">🎓</span>
+                                    <span class="cat-card-chip">SSLC Standard</span>
+                                </div>
+                                <h3 class="cat-card-title">🎓 10th Level</h3>
+                                <p class="cat-card-desc">Common Preliminary Examinations Stages 1 to 4 question papers.</p>
+                                <div class="cat-card-footer">
+                                    <span class="cat-card-count">2018 – 2025 Papers</span>
+                                    <span class="cat-card-action">Select Year →</span>
+                                </div>
+                            </div>
+
+                            <!-- 4. Plus Two Level -->
+                            <div class="category-select-card pyq-exam-card" data-exam-id="plustwo" tabindex="0" role="button" aria-label="Select Plus Two Level Exam Papers">
+                                <div class="cat-card-header">
+                                    <span class="cat-card-icon">🏢</span>
+                                    <span class="cat-card-chip">Higher Secondary</span>
+                                </div>
+                                <h3 class="cat-card-title">🏢 Plus Two Level</h3>
+                                <p class="cat-card-desc">Civil Police Officer (CPO), Fireman, Typist & Beat Forest Officer.</p>
+                                <div class="cat-card-footer">
+                                    <span class="cat-card-count">2018 – 2025 Papers</span>
+                                    <span class="cat-card-action">Select Year →</span>
+                                </div>
+                            </div>
+
+                            <!-- 5. LP/UP Assistant -->
+                            <div class="category-select-card pyq-exam-card" data-exam-id="lpup" tabindex="0" role="button" aria-label="Select LP/UP Assistant Exam Papers">
+                                <div class="cat-card-header">
+                                    <span class="cat-card-icon">👩‍💼</span>
+                                    <span class="cat-card-chip">Education Dept</span>
+                                </div>
+                                <h3 class="cat-card-title">👩‍💼 LP/UP Assistant</h3>
+                                <p class="cat-card-desc">Lower Primary & Upper Primary school teacher recruitment question papers.</p>
+                                <div class="cat-card-footer">
+                                    <span class="cat-card-count">2018 – 2025 Papers</span>
+                                    <span class="cat-card-action">Select Year →</span>
+                                </div>
+                            </div>
+
+                            <!-- 6. Other PSC Exams -->
+                            <div class="category-select-card pyq-exam-card" data-exam-id="other" tabindex="0" role="button" aria-label="Select Other PSC Exam Papers">
+                                <div class="cat-card-header">
+                                    <span class="cat-card-icon">📚</span>
+                                    <span class="cat-card-chip">Special</span>
+                                </div>
+                                <h3 class="cat-card-title">📚 Other PSC Exams</h3>
+                                <p class="cat-card-desc">KAS, Village Field Assistant, Driver, Lab Assistant & Departmental Tests.</p>
+                                <div class="cat-card-footer">
+                                    <span class="cat-card-count">2018 – 2025 Papers</span>
+                                    <span class="cat-card-action">Select Year →</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- VIEW 4B: YEAR SELECTION SCREEN -->
+                <div id="pyq-years-view" class="hidden">
+                    <div class="screen-back-bar">
+                        <button id="pyq-years-back-btn" class="back-link-btn" type="button">
+                            <span class="back-arrow">←</span>
+                            <span>Back to Exam Categories</span>
+                        </button>
+                    </div>
+
+                    <div class="welcome-box">
+                        <h2 id="pyq-selected-exam-title">LDC Previous Year Questions</h2>
+                        <p class="welcome-desc">
+                            Select an examination year:
+                        </p>
+                    </div>
+
+                    <!-- Year Selection Grid -->
+                    <div class="pyq-years-container">
+                        <div class="pyq-years-grid" id="pyq-years-grid">
+                            <!-- Populated dynamically by JavaScript (2025, 2024, 2023, 2022, 2021, 2020, 2019, 2018) -->
+                        </div>
+                    </div>
+
+                    <!-- Data Transparency Notice -->
+                    <div class="rules-card pyq-data-notice">
+                        <h4>📋 Kerala PSC Paper Verification Status:</h4>
+                        <p class="notice-text">
+                            To ensure high standards of exam readiness, available papers are marked with their verification status. Years without verified questions are clearly tagged as <em>Coming Soon</em> and not presented as official papers until fully verified.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- VIEW 4C: PYQ PRACTICE SCREEN -->
+                <div id="pyq-practice-view" class="hidden">
+                    <div class="screen-back-bar">
+                        <button id="pyq-practice-back-btn" class="back-link-btn" type="button">
+                            <span class="back-arrow">←</span>
+                            <span>Back to Year Selection</span>
+                        </button>
+                    </div>
+
+                    <!-- PYQ Status Bar -->
+                    <div class="quiz-top-bar">
+                        <span id="pyq-exam-badge" class="badge">LDC 2024</span>
+                        <span id="pyq-sample-pill" class="pyq-sample-pill">📌 Sample PYQ</span>
+                        <span id="pyq-question-counter" class="counter-text">Question 1 of 10</span>
+                        <span id="pyq-answered-indicator" class="score-text">Answered: <strong>0 / 10</strong></span>
+                    </div>
+
+                    <!-- Progress Bar -->
+                    <div class="progress-track" aria-label="Practice Progress">
+                        <div id="pyq-progress-bar" class="progress-fill" style="width: 10%;"></div>
+                    </div>
+
+                    <!-- Question Container -->
+                    <div class="question-container">
+                        <div class="question-meta">
+                            <span id="pyq-paper-code" class="category-badge">Paper Code</span>
+                        </div>
+                        <h2 id="pyq-question-text" class="question-text">Loading question...</h2>
+                    </div>
+
+                    <!-- 4 Multiple-Choice Options -->
+                    <div id="pyq-options-container" class="options-grid">
+                        <!-- Options generated dynamically by JavaScript -->
+                    </div>
+
+                    <!-- Navigation and Submit Controls -->
+                    <div class="pyq-controls-footer">
+                        <button id="pyq-prev-btn" class="action-btn secondary-btn" type="button" disabled>
+                            <span>← Previous</span>
+                        </button>
+                        <button id="pyq-submit-btn" class="action-btn primary-btn submit-pyq-btn" type="button">
+                            <span>Finish Paper ✅</span>
+                        </button>
+                        <button id="pyq-next-btn" class="action-btn secondary-btn" type="button">
+                            <span>Next →</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- VIEW 4D: PYQ RESULTS & DETAILED REVIEW SCREEN -->
+                <div id="pyq-result-view" class="hidden">
+                    <div class="result-header">
+                        <div class="result-trophy" id="pyq-result-trophy">🏆</div>
+                        <h2>PYQ Session Completed!</h2>
+                        <p id="pyq-result-message" class="result-message">Great effort on this previous year paper!</p>
+                    </div>
+
+                    <!-- Score Card -->
+                    <div class="score-card">
+                        <div class="score-circle">
+                            <span id="pyq-final-percentage" class="percentage-value">0%</span>
+                            <span class="percentage-label">Accuracy</span>
+                        </div>
+
+                        <div class="score-details">
+                            <div class="score-detail-item">
+                                <span class="detail-label">Exam Paper</span>
+                                <span id="pyq-result-exam" class="detail-value">LDC 2024</span>
+                            </div>
+                            <div class="score-detail-item">
+                                <span class="detail-label">Total Questions</span>
+                                <span id="pyq-result-total" class="detail-value">10</span>
+                            </div>
+                            <div class="score-detail-item">
+                                <span class="detail-label">Correct Answers</span>
+                                <span id="pyq-result-correct" class="detail-value">0 / 10</span>
+                            </div>
+                            <div class="score-detail-item">
+                                <span class="detail-label">Final Score</span>
+                                <span id="pyq-final-score" class="detail-value">0 pts</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Result Navigation Actions -->
+                    <div class="result-actions">
+                        <button id="pyq-retake-btn" class="action-btn primary-btn" type="button">
+                            <span>🔄 Retake Paper</span>
+                        </button>
+                        <button id="pyq-other-year-btn" class="action-btn secondary-btn" type="button">
+                            <span>📅 Select Another Year</span>
+                        </button>
+                        <button id="pyq-all-exams-btn" class="action-btn secondary-btn" type="button">
+                            <span>🏛️ Back to Exam Levels</span>
+                        </button>
+                    </div>
+
+                    <!-- Detailed Solutions & Explanations Review Section -->
+                    <div class="pyq-review-section">
+                        <div class="dash-section-header">
+                            <h3>🔍 Question-by-Question Review & Explanations</h3>
+                            <span class="section-subtext">Verify correct answers and review detailed PSC solutions</span>
+                        </div>
+                        <div id="pyq-review-container" class="pyq-review-container">
+                            <!-- Populated dynamically with each question, user answer, correct answer, and explanation -->
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+
+            <!-- ================= SCREEN 5: CATEGORIES OVERVIEW SCREEN ================= -->
+            <section id="categories-screen" class="screen-view hidden">
+                <div class="welcome-box">
+                    <h2>PSC Topic-Wise Drill Practice</h2>
+                    <p class="welcome-desc">
+                        Targeted drills focusing on specific high-weightage subjects from the Kerala PSC syllabus. Choose a subject below to begin customized practice.
+                    </p>
+                </div>
+
+                <div class="category-select-section">
+                    <div class="section-subtitle-bar">
+                        <h3 class="category-select-title">Select a Subject</h3>
+                        <span class="section-badge">10 Core PSC Subjects</span>
+                    </div>
+
+                    <div class="category-select-grid" id="category-cards-grid">
+                        <!-- 1. Kerala GK -->
+                        <div class="category-select-card" data-category="Kerala GK" tabindex="0" role="button" aria-label="Practice Kerala GK">
+                            <div class="cat-card-header">
+                                <span class="cat-card-icon">🌴</span>
+                                <span class="cat-card-chip syllabus-core">High Weightage</span>
+                            </div>
+                            <h3 class="cat-card-title">Kerala GK</h3>
+                            <p class="cat-card-desc">Rivers, geography, renaissance reformers & historic milestones.</p>
+                            <div class="cat-card-footer">
+                                <span class="cat-card-count" data-cat-count="Kerala GK">Loading...</span>
+                                <span class="cat-card-action">Practice →</span>
+                            </div>
+                        </div>
+
+                        <!-- 2. Constitution -->
+                        <div class="category-select-card" data-category="Constitution" tabindex="0" role="button" aria-label="Practice Constitution">
+                            <div class="cat-card-header">
+                                <span class="cat-card-icon">📜</span>
+                                <span class="cat-card-chip syllabus-core">High Weightage</span>
+                            </div>
+                            <h3 class="cat-card-title">Constitution</h3>
+                            <p class="cat-card-desc">Preamble, Fundamental Rights, Articles & Amendments.</p>
+                            <div class="cat-card-footer">
+                                <span class="cat-card-count" data-cat-count="Constitution">Loading...</span>
+                                <span class="cat-card-action">Practice →</span>
+                            </div>
+                        </div>
+
+                        <!-- 3. Science & Tech -->
+                        <div class="category-select-card" data-category="Science & Tech" tabindex="0" role="button" aria-label="Practice Science and Tech">
+                            <div class="cat-card-header">
+                                <span class="cat-card-icon">🔬</span>
+                                <span class="cat-card-chip">General Science</span>
+                            </div>
+                            <h3 class="cat-card-title">Science & Tech</h3>
+                            <p class="cat-card-desc">Physics, chemistry, human biology & space technology.</p>
+                            <div class="cat-card-footer">
+                                <span class="cat-card-count" data-cat-count="Science & Tech">Loading...</span>
+                                <span class="cat-card-action">Practice →</span>
+                            </div>
+                        </div>
+
+                        <!-- 4. Indian History -->
+                        <div class="category-select-card" data-category="Indian History" tabindex="0" role="button" aria-label="Practice Indian History">
+                            <div class="cat-card-header">
+                                <span class="cat-card-icon">⚔️</span>
+                                <span class="cat-card-chip">History</span>
+                            </div>
+                            <h3 class="cat-card-title">Indian History</h3>
+                            <p class="cat-card-desc">Ancient empires, medieval dynasties & National Freedom Movement.</p>
+                            <div class="cat-card-footer">
+                                <span class="cat-card-count" data-cat-count="Indian History">Loading...</span>
+                                <span class="cat-card-action">Practice →</span>
+                            </div>
+                        </div>
+
+                        <!-- 5. Geography -->
+                        <div class="category-select-card" data-category="Geography" tabindex="0" role="button" aria-label="Practice Geography">
+                            <div class="cat-card-header">
+                                <span class="cat-card-icon">🌍</span>
+                                <span class="cat-card-chip">Geography</span>
+                            </div>
+                            <h3 class="cat-card-title">Geography</h3>
+                            <p class="cat-card-desc">Indian rivers, physical divisions, climate & world landforms.</p>
+                            <div class="cat-card-footer">
+                                <span class="cat-card-count" data-cat-count="Geography">Loading...</span>
+                                <span class="cat-card-action">Practice →</span>
+                            </div>
+                        </div>
+
+                        <!-- 6. Indian Economics -->
+                        <div class="category-select-card" data-category="Indian Economics" tabindex="0" role="button" aria-label="Practice Indian Economics">
+                            <div class="cat-card-header">
+                                <span class="cat-card-icon">📈</span>
+                                <span class="cat-card-chip">Economics</span>
+                            </div>
+                            <h3 class="cat-card-title">Indian Economics</h3>
+                            <p class="cat-card-desc">NITI Aayog, Five-Year Plans, RBI, banking reforms & policies.</p>
+                            <div class="cat-card-footer">
+                                <span class="cat-card-count" data-cat-count="Indian Economics">Loading...</span>
+                                <span class="cat-card-action">Practice →</span>
+                            </div>
+                        </div>
+
+                        <!-- 7. India Facts -->
+                        <div class="category-select-card" data-category="India Facts" tabindex="0" role="button" aria-label="Practice India Facts">
+                            <div class="cat-card-header">
+                                <span class="cat-card-icon">🇮🇳</span>
+                                <span class="cat-card-chip">GK Facts</span>
+                            </div>
+                            <h3 class="cat-card-title">India Facts</h3>
+                            <p class="cat-card-desc">National symbols, states, premier institutions & heritage.</p>
+                            <div class="cat-card-footer">
+                                <span class="cat-card-count" data-cat-count="India Facts">Loading...</span>
+                                <span class="cat-card-action">Practice →</span>
+                            </div>
+                        </div>
+
+                        <!-- 8. World GK -->
+                        <div class="category-select-card" data-category="World GK" tabindex="0" role="button" aria-label="Practice World GK">
+                            <div class="cat-card-header">
+                                <span class="cat-card-icon">🌐</span>
+                                <span class="cat-card-chip">International</span>
+                            </div>
+                            <h3 class="cat-card-title">World GK</h3>
+                            <p class="cat-card-desc">UN organizations, world capitals, geography & global landmarks.</p>
+                            <div class="cat-card-footer">
+                                <span class="cat-card-count" data-cat-count="World GK">Loading...</span>
+                                <span class="cat-card-action">Practice →</span>
+                            </div>
+                        </div>
+
+                        <!-- 9. Sports -->
+                        <div class="category-select-card" data-category="Sports" tabindex="0" role="button" aria-label="Practice Sports">
+                            <div class="cat-card-header">
+                                <span class="cat-card-icon">🏅</span>
+                                <span class="cat-card-chip">Sports & Games</span>
+                            </div>
+                            <h3 class="cat-card-title">Sports</h3>
+                            <p class="cat-card-desc">Olympic Games, Asian Games, cricket, football & trophies.</p>
+                            <div class="cat-card-footer">
+                                <span class="cat-card-count" data-cat-count="Sports">Loading...</span>
+                                <span class="cat-card-action">Practice →</span>
+                            </div>
+                        </div>
+
+                        <!-- 10. Current Affairs -->
+                        <div class="category-select-card" data-category="Current Affairs" tabindex="0" role="button" aria-label="Practice Current Affairs">
+                            <div class="cat-card-header">
+                                <span class="cat-card-icon">📰</span>
+                                <span class="cat-card-chip current-affairs-chip">Verified Facts</span>
+                            </div>
+                            <h3 class="cat-card-title">Current Affairs</h3>
+                            <p class="cat-card-desc">Chandrayaan-3, Aditya-L1, Nobel 2024 & national updates.</p>
+                            <div class="cat-card-footer">
+                                <span class="cat-card-count" data-cat-count="Current Affairs">Loading...</span>
+                                <span class="cat-card-action">Practice →</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ================= SCREEN 6: CATEGORY DETAIL & DIFFICULTY SCREEN ================= -->
+            <section id="category-detail-screen" class="screen-view hidden">
+                <div class="screen-back-bar">
+                    <button id="cat-back-btn" class="back-link-btn" type="button">
+                        <span class="back-arrow">←</span>
+                        <span>Back to Categories</span>
+                    </button>
+                </div>
+
+                <!-- Category Info Header Card -->
+                <div class="cat-detail-hero">
+                    <div class="cat-detail-icon-wrap">
+                        <span id="cat-detail-icon" class="cat-detail-icon">🏅</span>
+                    </div>
+                    <div class="cat-detail-info">
+                        <div class="cat-badge-row">
+                            <span class="badge category-hero-badge">PSC Topic Drill</span>
+                        </div>
+                        <h2 id="cat-detail-title" class="cat-detail-title">Sports</h2>
+                        <p id="cat-detail-desc" class="cat-detail-desc">Practice questions related to sports, tournaments, trophies, and records.</p>
+                        <span id="cat-detail-subtitle" class="cat-detail-subtitle">High-weightage questions based on Kerala PSC syllabus</span>
+                    </div>
+                </div>
+
+                <!-- Difficulty Selection -->
+                <div class="cat-diff-section">
+                    <h3 class="cat-diff-heading">Choose Difficulty Level</h3>
+                    <div class="cat-diff-grid">
+                        
+                        <!-- Easy Option -->
+                        <div class="cat-diff-card active" data-difficulty="easy" tabindex="0" role="button" aria-pressed="true">
+                            <div class="cat-diff-top">
+                                <div class="cat-diff-icon-name">
+                                    <span class="diff-icon">🌱</span>
+                                    <span class="diff-name">Easy</span>
+                                </div>
+                                <span class="diff-check-pill">Selected</span>
+                            </div>
+                            <p class="diff-desc">Fundamental questions for quick revision.</p>
+                            <span class="diff-tag" id="cat-easy-count">Loading questions...</span>
+                        </div>
+
+                        <!-- Medium Option -->
+                        <div class="cat-diff-card" data-difficulty="medium" tabindex="0" role="button" aria-pressed="false">
+                            <div class="cat-diff-top">
+                                <div class="cat-diff-icon-name">
+                                    <span class="diff-icon">⚡</span>
+                                    <span class="diff-name">Medium</span>
+                                </div>
+                                <span class="diff-check-pill">Selected</span>
+                            </div>
+                            <p class="diff-desc">Standard PSC exam-level questions.</p>
+                            <span class="diff-tag" id="cat-medium-count">Loading questions...</span>
+                        </div>
+
+                        <!-- Hard Option -->
+                        <div class="cat-diff-card" data-difficulty="hard" tabindex="0" role="button" aria-pressed="false">
+                            <div class="cat-diff-top">
+                                <div class="cat-diff-icon-name">
+                                    <span class="diff-icon">🔥</span>
+                                    <span class="diff-name">Hard</span>
+                                </div>
+                                <span class="diff-check-pill">Selected</span>
+                            </div>
+                            <p class="diff-desc">Challenging questions for advanced preparation.</p>
+                            <span class="diff-tag" id="cat-hard-count">Loading questions...</span>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Category Quiz CTA -->
+                <div class="cat-start-cta-wrap">
+                    <button id="cat-start-quiz-btn" class="action-btn primary-btn large-cta" type="button">
+                        <span>🚀 Start Quiz</span>
+                    </button>
+                    <div class="cat-quiz-rules-hint">
+                        <span>⏱️ 1 minute per question • Shuffled questions & options</span>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <!-- Page Footer -->
+        <footer class="app-footer">
+            <p>GK & PSC Exam Prep Platform &copy; Built with HTML, CSS & Vanilla JavaScript</p>
+        </footer>
+
+    </div>
+
+    <!-- Include JavaScript files (questions first, then application logic) -->
+    <script src="questions.js"></script>
+    <script src="app.js"></script>
+
+    <!-- Firebase Web SDK & Authentication Integration -->
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
+      import { 
+        getAuth, 
+        createUserWithEmailAndPassword, 
+        signInWithEmailAndPassword, 
+        signOut, 
+        onAuthStateChanged,
+        sendPasswordResetEmail,
+        updateProfile 
+      } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
+      import { getAnalytics, isSupported } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-analytics.js";
+      import { 
+        getFirestore, 
+        doc, 
+        setDoc, 
+        getDoc, 
+        serverTimestamp,
+        collection,
+        getDocs,
+        query,
+        orderBy,
+        limit 
+      } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
+
+      // Firebase configuration
+      const firebaseConfig = {
+        apiKey: "AIzaSyAPArly6o8LvKKIU6wlT0O2lmMmvYKvREE",
+        authDomain: "psc-quiz-9206d.firebaseapp.com",
+        projectId: "psc-quiz-9206d",
+        storageBucket: "psc-quiz-9206d.firebasestorage.app",
+        messagingSenderId: "203788771244",
+        appId: "1:203788771244:web:6c1fed207de05fe44f2409",
+        measurementId: "G-8WRZRJLQZK"
+      };
+
+      // Initialize Firebase App & Auth
+      const app = initializeApp(firebaseConfig);
+      const auth = getAuth(app);
+      const db = getFirestore(app);
+
+      // Initialize Analytics if supported
+      let analytics = null;
+      isSupported().then(supported => {
+        if (supported) {
+          analytics = getAnalytics(app);
+          window.firebaseAnalytics = analytics;
+        }
+      }).catch(err => {
+        console.warn("Firebase Analytics is not supported in this environment:", err);
+      });
+
+      // Expose globally for console testing
+      window.firebaseApp = app;
+      window.firebaseConfig = firebaseConfig;
+      window.firebaseAuth = auth;
+      window.firebaseDb = db;
+
+      // =========================================================================
+      // DEDICATED FULL-PAGE AUTHENTICATION CONTROLLER
+      // =========================================================================
+
+      // Top-level containers
+      const authLoadingScreen = document.getElementById("auth-loading-screen");
+      const authPage = document.getElementById("auth-page");
+      const appContainer = document.getElementById("app-container");
+
+      // Main app user indicators & Profile Elements
+      const userEmailDisplay = document.getElementById("user-email-display");
+      const mainSignoutBtn = document.getElementById("main-signout-btn");
+      const dashAuthText = document.getElementById("dash-auth-text");
+
+      const profileMenuContainer = document.getElementById("profile-menu-container");
+      const profileToggleBtn = document.getElementById("profile-toggle-btn");
+      const profileDropdownCard = document.getElementById("profile-dropdown-card");
+      const headerAvatarIcon = document.getElementById("header-avatar-icon");
+      const profileAvatarLarge = document.getElementById("profile-avatar-large");
+      const profileDisplayName = document.getElementById("profile-display-name");
+      const profileDisplayEmail = document.getElementById("profile-display-email");
+      const profileViewSection = document.getElementById("profile-view-section");
+      const profileViewName = document.getElementById("profile-view-name");
+      const profileViewEmail = document.getElementById("profile-view-email");
+      const profileEditBtn = document.getElementById("profile-edit-btn");
+      const profileEditForm = document.getElementById("profile-edit-form");
+      const profileNameInput = document.getElementById("profile-name-input");
+      const profileCancelEditBtn = document.getElementById("profile-cancel-edit-btn");
+      const profileSaveBtn = document.getElementById("profile-save-btn");
+      const profileSaveSpinner = document.getElementById("profile-save-spinner");
+      const profileSaveText = document.getElementById("profile-save-text");
+      const profileFeedback = document.getElementById("profile-feedback");
+      const avatarOptionBtns = document.querySelectorAll(".avatar-option-btn");
+
+      // Auth Page controls
+      const authTabs = document.getElementById("auth-tabs");
+      const tabSigninBtn = document.getElementById("tab-signin-btn");
+      const tabSignupBtn = document.getElementById("tab-signup-btn");
+
+      const authAlert = document.getElementById("auth-alert");
+      const authAlertIcon = document.getElementById("auth-alert-icon");
+      const authAlertMsg = document.getElementById("auth-alert-msg");
+
+      // Form 1: Sign In
+      const formSignin = document.getElementById("form-signin");
+      const signinEmail = document.getElementById("signin-email");
+      const signinPassword = document.getElementById("signin-password");
+      const signinSubmitBtn = document.getElementById("signin-submit-btn");
+      const signinSpinner = document.getElementById("signin-spinner");
+      const signinBtnText = document.getElementById("signin-btn-text");
+      const forgotPasswordLink = document.getElementById("forgot-password-link");
+      const switchToSignupBtn = document.getElementById("switch-to-signup-btn");
+
+      // Form 2: Sign Up
+      const formSignup = document.getElementById("form-signup");
+      const signupEmail = document.getElementById("signup-email");
+      const signupPassword = document.getElementById("signup-password");
+      const signupConfirmPassword = document.getElementById("signup-confirm-password");
+      const signupSubmitBtn = document.getElementById("signup-submit-btn");
+      const signupSpinner = document.getElementById("signup-spinner");
+      const signupBtnText = document.getElementById("signup-btn-text");
+      const switchToSigninBtn = document.getElementById("switch-to-signin-btn");
+
+      // Form 3: Password Reset
+      const formReset = document.getElementById("form-reset");
+      const resetEmail = document.getElementById("reset-email");
+      const resetSubmitBtn = document.getElementById("reset-submit-btn");
+      const resetSpinner = document.getElementById("reset-spinner");
+      const resetBtnText = document.getElementById("reset-btn-text");
+      const backToSigninBtn = document.getElementById("back-to-signin-btn");
+
+      // Auth Page Theme Switcher
+      const authThemeToggleBtn = document.getElementById("auth-theme-toggle-btn");
+      const authThemeToggleIcon = document.getElementById("auth-theme-toggle-icon");
+      const authThemeToggleText = document.getElementById("auth-theme-toggle-text");
+
+      // Friendly Firebase Error Messages
+      function getFriendlyErrorMessage(error) {
+        if (!error || !error.code) {
+          return error?.message || "An unexpected error occurred. Please try again.";
+        }
+        switch (error.code) {
+          case "auth/email-already-in-use":
+            return "An account with this email already exists. Please sign in instead.";
+          case "auth/invalid-email":
+            return "Please enter a valid email address.";
+          case "auth/user-not-found":
+            return "No account found with this email. Please create an account first.";
+          case "auth/wrong-password":
+            return "Incorrect password. Please try again or reset your password.";
+          case "auth/invalid-credential":
+            return "Incorrect email or password. Please verify your credentials.";
+          case "auth/weak-password":
+            return "Password is too weak. Please use at least 6 characters.";
+          case "auth/missing-password":
+            return "Please enter your password.";
+          case "auth/too-many-requests":
+            return "Access temporarily blocked due to multiple failed attempts. Please try again in a few minutes.";
+          case "auth/network-request-failed":
+            return "Network connection issue. Please check your internet connection.";
+          case "auth/user-disabled":
+            return "This user account has been disabled. Please contact support.";
+          default:
+            return error.message || "Authentication error. Please try again.";
+        }
+      }
+
+      // Alert Helpers
+      function showAlert(message, type = "error") {
+        if (!authAlert) return;
+        authAlert.className = `auth-alert ${type}`;
+        if (type === "success") {
+          authAlertIcon.textContent = "✅";
+        } else if (type === "info") {
+          authAlertIcon.textContent = "ℹ️";
+        } else {
+          authAlertIcon.textContent = "⚠️";
+        }
+        authAlertMsg.textContent = message;
+        authAlert.classList.remove("hidden");
+      }
+
+      function hideAlert() {
+        if (!authAlert) return;
+        authAlert.classList.add("hidden");
+        authAlertMsg.textContent = "";
+      }
+
+      function escapeHtml(str) {
+        if (!str) return "";
+        return str.replace(/[&<>"']/g, function(match) {
+          const map = {
+            "&": "&amp;",
+            "<": "&lt;",
+            ">": "&gt;",
+            "\"": "&quot;",
+            "'": "&#39;"
+          };
+          return map[match];
+        });
+      }
+
+      // Tab Switching ('signin' | 'signup' | 'reset')
+      function switchTab(mode) {
+        hideAlert();
+        if (mode === "signin") {
+          authTabs?.classList.remove("hidden");
+          tabSigninBtn?.classList.add("active");
+          tabSigninBtn?.setAttribute("aria-selected", "true");
+          tabSignupBtn?.classList.remove("active");
+          tabSignupBtn?.setAttribute("aria-selected", "false");
+
+          formSignin?.classList.remove("hidden");
+          formSignup?.classList.add("hidden");
+          formReset?.classList.add("hidden");
+          setTimeout(() => signinEmail?.focus(), 50);
+
+        } else if (mode === "signup") {
+          authTabs?.classList.remove("hidden");
+          tabSignupBtn?.classList.add("active");
+          tabSignupBtn?.setAttribute("aria-selected", "true");
+          tabSigninBtn?.classList.remove("active");
+          tabSigninBtn?.setAttribute("aria-selected", "false");
+
+          formSignup?.classList.remove("hidden");
+          formSignin?.classList.add("hidden");
+          formReset?.classList.add("hidden");
+          setTimeout(() => signupEmail?.focus(), 50);
+
+        } else if (mode === "reset") {
+          authTabs?.classList.add("hidden");
+          formReset?.classList.remove("hidden");
+          formSignin?.classList.add("hidden");
+          formSignup?.classList.add("hidden");
+          setTimeout(() => resetEmail?.focus(), 50);
+        }
+      }
+
+      // Loading Helper
+      function setButtonLoading(button, spinner, textElem, isLoading, defaultText, loadingText) {
+        if (!button) return;
+        button.disabled = isLoading;
+        if (isLoading) {
+          spinner?.classList.remove("hidden");
+          if (textElem) textElem.textContent = loadingText;
+        } else {
+          spinner?.classList.add("hidden");
+          if (textElem) textElem.textContent = defaultText;
+        }
+      }
+
+      // Password Visibility Toggle Buttons
+      document.querySelectorAll(".password-toggle-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+          const targetId = btn.getAttribute("data-target");
+          const input = document.getElementById(targetId);
+          if (input) {
+            if (input.type === "password") {
+              input.type = "text";
+              btn.textContent = "🙈";
+              btn.setAttribute("title", "Hide Password");
+            } else {
+              input.type = "password";
+              btn.textContent = "👁️";
+              btn.setAttribute("title", "Show Password");
+            }
+          }
+        });
+      });
+
+      // Navigation & Tab Switcher Listeners
+      tabSigninBtn?.addEventListener("click", () => switchTab("signin"));
+      tabSignupBtn?.addEventListener("click", () => switchTab("signup"));
+      forgotPasswordLink?.addEventListener("click", () => switchTab("reset"));
+      backToSigninBtn?.addEventListener("click", () => switchTab("signin"));
+      switchToSignupBtn?.addEventListener("click", () => switchTab("signup"));
+      switchToSigninBtn?.addEventListener("click", () => switchTab("signin"));
+
+      // Auth Page Theme Toggle Sync
+      function syncAuthThemeDisplay(theme) {
+        if (authThemeToggleIcon && authThemeToggleText) {
+          if (theme === "dark") {
+            authThemeToggleIcon.textContent = "☀️";
+            authThemeToggleText.textContent = "Light Mode";
+          } else {
+            authThemeToggleIcon.textContent = "🌙";
+            authThemeToggleText.textContent = "Dark Mode";
+          }
+        }
+      }
+
+      // Sync initial theme on auth page
+      const currentTheme = document.documentElement.getAttribute("data-theme") || "light";
+      syncAuthThemeDisplay(currentTheme);
+
+      authThemeToggleBtn?.addEventListener("click", () => {
+        if (typeof window.toggleTheme === "function") {
+          window.toggleTheme();
+        } else {
+          const nowTheme = document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark";
+          document.documentElement.setAttribute("data-theme", nowTheme);
+          localStorage.setItem("psc_quiz_theme_preference", nowTheme);
+        }
+        const updatedTheme = document.documentElement.getAttribute("data-theme") || "light";
+        syncAuthThemeDisplay(updatedTheme);
+      });
+
+      // -------------------------------------------------------------------------
+      // AUTHENTICATION ACTIONS
+      // -------------------------------------------------------------------------
+
+      // 1. Sign In
+      formSignin?.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        hideAlert();
+
+        const email = signinEmail.value.trim();
+        const password = signinPassword.value;
+
+        if (!email || !password) {
+          showAlert("Please fill in both email and password.", "error");
+          return;
+        }
+
+        setButtonLoading(signinSubmitBtn, signinSpinner, signinBtnText, true, "Sign In to Dashboard ➔", "Signing in...");
+
+        try {
+          await signInWithEmailAndPassword(auth, email, password);
+          // View transition is handled automatically by onAuthStateChanged!
+        } catch (error) {
+          console.error("Sign-in error:", error);
+          showAlert(getFriendlyErrorMessage(error), "error");
+        } finally {
+          setButtonLoading(signinSubmitBtn, signinSpinner, signinBtnText, false, "Sign In to Dashboard ➔", "Signing in...");
+        }
+      });
+
+      // 2. Sign Up (Create Account)
+      formSignup?.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        hideAlert();
+
+        const email = signupEmail.value.trim();
+        const password = signupPassword.value;
+        const confirmPassword = signupConfirmPassword.value;
+
+        if (!email || !password || !confirmPassword) {
+          showAlert("Please fill in all required fields.", "error");
+          return;
+        }
+
+        if (password.length < 6) {
+          showAlert("Password must be at least 6 characters long.", "error");
+          return;
+        }
+
+        if (password !== confirmPassword) {
+          showAlert("Passwords do not match. Please re-enter your password.", "error");
+          return;
+        }
+
+        setButtonLoading(signupSubmitBtn, signupSpinner, signupBtnText, true, "Create Account & Enter ➔", "Creating account...");
+
+        try {
+          await createUserWithEmailAndPassword(auth, email, password);
+          // View transition is handled automatically by onAuthStateChanged!
+        } catch (error) {
+          console.error("Sign-up error:", error);
+          showAlert(getFriendlyErrorMessage(error), "error");
+        } finally {
+          setButtonLoading(signupSubmitBtn, signupSpinner, signupBtnText, false, "Create Account & Enter ➔", "Creating account...");
+        }
+      });
+
+      // 3. Password Reset
+      formReset?.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        hideAlert();
+
+        const email = resetEmail.value.trim();
+        if (!email) {
+          showAlert("Please enter your account email address.", "error");
+          return;
+        }
+
+        setButtonLoading(resetSubmitBtn, resetSpinner, resetBtnText, true, "Send Reset Link", "Sending link...");
+
+        try {
+          await sendPasswordResetEmail(auth, email);
+          showAlert("Password reset email sent! Check your inbox for instructions.", "success");
+          formReset.reset();
+        } catch (error) {
+          console.error("Password reset error:", error);
+          showAlert(getFriendlyErrorMessage(error), "error");
+        } finally {
+          setButtonLoading(resetSubmitBtn, resetSpinner, resetBtnText, false, "Send Reset Link", "Sending link...");
+        }
+      });
+
+      // -------------------------------------------------------------------------
+      // PROFILE SECTION CONTROLLER & EDITING
+      // -------------------------------------------------------------------------
+      function getStoredUserAvatar(uid) {
+        const targetUid = uid || auth?.currentUser?.uid || window.activeAuthUserId;
+        const key = targetUid ? `psc_quiz_user_avatar_${targetUid}` : "psc_quiz_user_avatar_guest";
+        return localStorage.getItem(key) || "👤";
+      }
+
+      function setStoredUserAvatar(avatar, uid) {
+        const targetUid = uid || auth?.currentUser?.uid || window.activeAuthUserId;
+        const key = targetUid ? `psc_quiz_user_avatar_${targetUid}` : "psc_quiz_user_avatar_guest";
+        try {
+          localStorage.setItem(key, avatar);
+        } catch (_) {}
+      }
+
+      function getStoredUserName(uid) {
+        const targetUid = uid || auth?.currentUser?.uid || window.activeAuthUserId;
+        const key = targetUid ? `psc_quiz_user_name_${targetUid}` : "psc_quiz_user_name_guest";
+        return localStorage.getItem(key) || "";
+      }
+
+      function setStoredUserName(name, uid) {
+        const targetUid = uid || auth?.currentUser?.uid || window.activeAuthUserId;
+        const key = targetUid ? `psc_quiz_user_name_${targetUid}` : "psc_quiz_user_name_guest";
+        try {
+          localStorage.setItem(key, name);
+        } catch (_) {}
+      }
+
+      window.getStoredUserName = getStoredUserName;
+      window.getStoredUserAvatar = getStoredUserAvatar;
+
+      function resetProfileForm() {
+        profileEditForm?.classList.add("hidden");
+        profileViewSection?.classList.remove("hidden");
+        if (profileFeedback) {
+          profileFeedback.classList.add("hidden");
+          profileFeedback.textContent = "";
+        }
+        const activeAvatar = getStoredUserAvatar();
+        avatarOptionBtns.forEach(btn => {
+          btn.classList.toggle("active", btn.dataset.avatar === activeAvatar);
+        });
+        if (profileAvatarLarge) profileAvatarLarge.textContent = activeAvatar;
+        if (profileNameInput && profileViewName) {
+          profileNameInput.value = profileViewName.textContent;
+        }
+      }
+
+      function updateProfileUI(user, customName = null, customAvatar = null) {
+        if (!user) {
+          if (headerAvatarIcon) headerAvatarIcon.textContent = "👤";
+          if (profileAvatarLarge) profileAvatarLarge.textContent = "👤";
+          if (profileDisplayName) profileDisplayName.textContent = "";
+          if (profileDisplayEmail) profileDisplayEmail.textContent = "";
+          if (profileViewName) profileViewName.textContent = "";
+          if (profileViewEmail) profileViewEmail.textContent = "";
+          if (profileNameInput) profileNameInput.value = "";
+          if (dashAuthText) dashAuthText.textContent = "";
+          return;
+        }
+
+        const uid = user.uid;
+        const effectiveName = customName || user.displayName || getStoredUserName(uid) || (user.email ? user.email.split("@")[0] : "Aspirant");
+        const effectiveAvatar = customAvatar || getStoredUserAvatar(uid);
+
+        if (headerAvatarIcon) headerAvatarIcon.textContent = effectiveAvatar;
+        if (profileAvatarLarge) profileAvatarLarge.textContent = effectiveAvatar;
+        if (profileDisplayName) profileDisplayName.textContent = effectiveName;
+        if (profileDisplayEmail) profileDisplayEmail.textContent = user.email || "";
+        if (profileViewName) profileViewName.textContent = effectiveName;
+        if (profileViewEmail) profileViewEmail.textContent = user.email || "";
+        if (profileNameInput) profileNameInput.value = effectiveName;
+
+        avatarOptionBtns.forEach(btn => {
+          btn.classList.toggle("active", btn.dataset.avatar === effectiveAvatar);
+        });
+
+        if (dashAuthText) {
+          dashAuthText.innerHTML = `👋 Welcome back, <strong>${escapeHtml(effectiveName)}</strong> • Session active`;
+        }
+      }
+
+      // Profile dropdown toggle
+      profileToggleBtn?.addEventListener("click", (e) => {
+        e.stopPropagation();
+        const isHidden = profileDropdownCard?.classList.contains("hidden");
+        if (isHidden) {
+          resetProfileForm();
+          profileDropdownCard?.classList.remove("hidden");
+          profileToggleBtn?.setAttribute("aria-expanded", "true");
+        } else {
+          profileDropdownCard?.classList.add("hidden");
+          profileToggleBtn?.setAttribute("aria-expanded", "false");
+        }
+      });
+
+      // Close dropdown when clicking outside
+      document.addEventListener("click", (e) => {
+        if (profileMenuContainer && !profileMenuContainer.contains(e.target)) {
+          if (!profileDropdownCard?.classList.contains("hidden")) {
+            profileDropdownCard?.classList.add("hidden");
+            profileToggleBtn?.setAttribute("aria-expanded", "false");
+          }
+        }
+      });
+
+      // Close dropdown on Escape key
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && !profileDropdownCard?.classList.contains("hidden")) {
+          profileDropdownCard?.classList.add("hidden");
+          profileToggleBtn?.setAttribute("aria-expanded", "false");
+        }
+      });
+
+      // Switch to Edit Mode
+      profileEditBtn?.addEventListener("click", () => {
+        profileViewSection?.classList.add("hidden");
+        profileEditForm?.classList.remove("hidden");
+        if (profileFeedback) profileFeedback.classList.add("hidden");
+        if (profileNameInput) {
+          profileNameInput.value = profileViewName ? profileViewName.textContent : "";
+          setTimeout(() => profileNameInput.focus(), 50);
+        }
+      });
+
+      // Cancel Edit
+      profileCancelEditBtn?.addEventListener("click", () => {
+        resetProfileForm();
+      });
+
+      // Avatar selection picker
+      avatarOptionBtns.forEach(btn => {
+        btn.addEventListener("click", () => {
+          avatarOptionBtns.forEach(b => b.classList.remove("active"));
+          btn.classList.add("active");
+          const pickedAvatar = btn.dataset.avatar;
+          if (profileAvatarLarge) profileAvatarLarge.textContent = pickedAvatar;
+        });
+      });
+
+      // -------------------------------------------------------------------------
+      // FIRESTORE PROFILE SYNCHRONIZATION HELPER
+      // -------------------------------------------------------------------------
+      async function syncUserProfileWithFirestore(user, nameToSet = null, avatarToSet = null) {
+        if (!user || !db) return null;
+        try {
+          const userDocRef = doc(db, "users", user.uid);
+          const userSnap = await getDoc(userDocRef);
+
+          let displayName = nameToSet;
+          let avatar = avatarToSet;
+
+          if (userSnap.exists()) {
+            const data = userSnap.data();
+            if (!displayName) {
+              displayName = data.displayName || user.displayName || getStoredUserName(user.uid) || (user.email ? user.email.split("@")[0] : "Aspirant");
+            }
+            if (!avatar) {
+              avatar = data.avatar || getStoredUserAvatar(user.uid) || "👤";
+            }
+
+            // Keep user document updated with email and lastLogin
+            await setDoc(userDocRef, {
+              email: user.email,
+              displayName: displayName,
+              avatar: avatar,
+              lastLogin: serverTimestamp()
+            }, { merge: true });
+
+            // Extract verified streak info from Firestore
+            const streakData = {
+              currentStreak: typeof data.currentStreak === "number" ? data.currentStreak : 0,
+              longestStreak: typeof data.longestStreak === "number" ? data.longestStreak : 0,
+              lastPracticeDate: data.lastPracticeDate || null,
+              recentPracticeDates: Array.isArray(data.recentPracticeDates) ? data.recentPracticeDates : []
+            };
+            window.currentUserStreak = streakData;
+            try {
+              localStorage.setItem(`psc_quiz_firestore_streak_${user.uid}`, JSON.stringify(streakData));
+            } catch (_) {}
+            if (typeof window.applyStreakToUI === "function") {
+              window.applyStreakToUI(streakData);
+            }
+
+          } else {
+            // First time this user document is created in Firestore
+            displayName = displayName || user.displayName || getStoredUserName(user.uid) || (user.email ? user.email.split("@")[0] : "Aspirant");
+            avatar = avatar || getStoredUserAvatar(user.uid) || "👤";
+
+            const initialStreakData = {
+              currentStreak: 0,
+              longestStreak: 0,
+              lastPracticeDate: null,
+              recentPracticeDates: []
+            };
+
+            await setDoc(userDocRef, {
+              uid: user.uid,
+              email: user.email,
+              displayName: displayName,
+              avatar: avatar,
+              ...initialStreakData,
+              createdAt: serverTimestamp(),
+              lastLogin: serverTimestamp()
+            }, { merge: true });
+
+            window.currentUserStreak = initialStreakData;
+            try {
+              localStorage.setItem(`psc_quiz_firestore_streak_${user.uid}`, JSON.stringify(initialStreakData));
+            } catch (_) {}
+            if (typeof window.applyStreakToUI === "function") {
+              window.applyStreakToUI(initialStreakData);
+            }
+          }
+
+          // Cache in local storage for fast immediate renders
+          setStoredUserName(displayName, user.uid);
+          setStoredUserAvatar(avatar, user.uid);
+
+          // Update UI
+          updateProfileUI(user, displayName, avatar);
+          return { displayName, avatar };
+
+        } catch (err) {
+          console.error("❌ Cloud Firestore user sync error (Check Firestore Rules):", err.code || "", err.message || err);
+          updateProfileUI(user);
+          return null;
+        }
+      }
+
+      // -------------------------------------------------------------------------
+      // CLOUD FIRESTORE DAILY STREAK ENGINE
+      // -------------------------------------------------------------------------
+      function getCalendarDayDiff(fromDateStr, toDateStr) {
+        if (!fromDateStr || !toDateStr) return null;
+        const [y1, m1, d1] = fromDateStr.split("-").map(Number);
+        const [y2, m2, d2] = toDateStr.split("-").map(Number);
+        const utc1 = Date.UTC(y1, m1 - 1, d1);
+        const utc2 = Date.UTC(y2, m2 - 1, d2);
+        const msPerDay = 86400000;
+        return Math.round((utc2 - utc1) / msPerDay);
+      }
+
+      window.updateUserDailyStreakInFirestore = async (uid, practiceDateString) => {
+        if (!uid || !db) return null;
+
+        try {
+          const now = new Date();
+          const todayStr = practiceDateString || (typeof window.getLocalDateString === "function" 
+            ? window.getLocalDateString(now) 
+            : `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}-${String(now.getDate()).padStart(2, "0")}`);
+
+          const userDocRef = doc(db, "users", uid);
+          const snap = await getDoc(userDocRef);
+          const userData = snap.exists() ? snap.data() : {};
+
+          const currentStreak = typeof userData.currentStreak === "number" ? userData.currentStreak : 0;
+          const longestStreak = typeof userData.longestStreak === "number" ? userData.longestStreak : 0;
+          const lastPracticeDate = userData.lastPracticeDate || null;
+          const recentPracticeDates = Array.isArray(userData.recentPracticeDates) ? userData.recentPracticeDates : [];
+
+          let newStreak = 1;
+          let newLongestStreak = Math.max(longestStreak, 1);
+          let isSameDay = false;
+
+          if (!lastPracticeDate) {
+            // First practice: streak starts at 1
+            newStreak = 1;
+            newLongestStreak = Math.max(longestStreak, 1);
+          } else {
+            const diff = getCalendarDayDiff(lastPracticeDate, todayStr);
+            if (diff === 0) {
+              // Same calendar day: do NOT increment multiple times. Keep currentStreak.
+              isSameDay = true;
+              newStreak = currentStreak > 0 ? currentStreak : 1;
+              newLongestStreak = Math.max(longestStreak, newStreak);
+            } else if (diff === 1) {
+              // Next calendar day: increment streak by 1
+              newStreak = (currentStreak > 0 ? currentStreak : 0) + 1;
+              newLongestStreak = Math.max(longestStreak, newStreak);
+            } else if (diff > 1) {
+              // Missed one or more calendar days: reset streak to 1
+              newStreak = 1;
+              newLongestStreak = Math.max(longestStreak, 1);
+            } else {
+              // Attempt date from past, keep current streak
+              newStreak = currentStreak > 0 ? currentStreak : 1;
+              newLongestStreak = Math.max(longestStreak, newStreak);
+            }
+          }
+
+          // Maintain recent unique practice dates for weekly activity tracker
+          const updatedPracticeDates = Array.from(new Set([...recentPracticeDates, todayStr])).sort().slice(-30);
+
+          const streakPayload = {
+            currentStreak: newStreak,
+            longestStreak: newLongestStreak,
+            lastPracticeDate: todayStr,
+            recentPracticeDates: updatedPracticeDates,
+            lastPracticeAt: serverTimestamp(),
+            lastActive: serverTimestamp(),
+            streakUpdatedAt: serverTimestamp()
+          };
+
+          await setDoc(userDocRef, streakPayload, { merge: true });
+
+          const streakResult = {
+            currentStreak: newStreak,
+            longestStreak: newLongestStreak,
+            lastPracticeDate: todayStr,
+            recentPracticeDates: updatedPracticeDates,
+            isSameDay: isSameDay
+          };
+
+          window.currentUserStreak = streakResult;
+          try {
+            localStorage.setItem(`psc_quiz_firestore_streak_${uid}`, JSON.stringify(streakResult));
+          } catch (_) {}
+
+          if (typeof window.applyStreakToUI === "function") {
+            window.applyStreakToUI(streakResult);
+          }
+
+          console.log(`🔥 Real Streak updated in Firestore: ${newStreak} Day(s) (Longest: ${newLongestStreak}, Last: ${todayStr}, SameDay: ${isSameDay})`);
+          return streakResult;
+
+        } catch (err) {
+          console.warn("Notice updating streak in Firestore (fallback to local):", err.message || err);
+          return null;
+        }
+      };
+
+      // -------------------------------------------------------------------------
+      // CLOUD FIRESTORE REAL LEADERBOARD ENGINE
+      // -------------------------------------------------------------------------
+      window.updateUserLeaderboardStatsInFirestore = async (uid, stats) => {
+        if (!uid || !db || !stats) return null;
+        try {
+          const userDocRef = doc(db, "users", uid);
+          const payload = {
+            totalPoints: Number(stats.totalPoints || 0),
+            quizzesCompleted: Number(stats.quizzesCompleted || 0),
+            totalQuestionsAttempted: Number(stats.totalQuestionsAttempted || 0),
+            totalCorrectAnswers: Number(stats.totalCorrectAnswers || 0),
+            accuracy: Number(stats.accuracy !== undefined ? stats.accuracy : 0),
+            leaderboardUpdatedAt: serverTimestamp(),
+            lastActive: serverTimestamp()
+          };
+          await setDoc(userDocRef, payload, { merge: true });
+          console.log("🏆 Leaderboard stats synced to Firestore:", payload.totalPoints, "pts across", payload.quizzesCompleted, "quizzes");
+          return payload;
+        } catch (err) {
+          console.warn("Notice updating leaderboard stats in Firestore:", err.message || err);
+          return null;
+        }
+      };
+
+      window.fetchLeaderboardFromFirestore = async (limitCount = 50) => {
+        if (!db) return null;
+
+        try {
+          const usersRef = collection(db, "users");
+          let snap;
+          try {
+            const q = query(usersRef, orderBy("totalPoints", "desc"), limit(limitCount));
+            snap = await getDocs(q);
+          } catch (orderErr) {
+            // Fallback in case index is building or not set
+            snap = await getDocs(usersRef);
+          }
+
+          const currentUid = auth?.currentUser?.uid || null;
+          const players = [];
+
+          snap.forEach(docSnap => {
+            const data = docSnap.data();
+            const uid = docSnap.id;
+            const isCurrentUser = Boolean(currentUid && currentUid === uid);
+
+            const displayName = data.displayName || (data.email ? data.email.split("@")[0] : "Aspirant");
+            const avatar = data.avatar || "👤";
+            const points = typeof data.totalPoints === "number" ? data.totalPoints : 0;
+            const quizzes = typeof data.quizzesCompleted === "number" ? data.quizzesCompleted : 0;
+            const accuracy = typeof data.accuracy === "number" ? data.accuracy : 0;
+
+            // Include users who have taken quizzes, or the currently logged-in user
+            if (quizzes > 0 || points > 0 || isCurrentUser) {
+              players.push({
+                uid,
+                name: displayName,
+                avatar,
+                points,
+                quizzes,
+                accuracy,
+                isUser: isCurrentUser
+              });
+            }
+          });
+
+          // Ensure currently logged-in user is included even if doc not returned or newly created
+          if (currentUid && !players.some(p => p.isUser)) {
+            const localHist = typeof window.loadQuizHistory === "function" ? window.loadQuizHistory() : [];
+            const localStats = typeof window.computeUserStatsFromHistory === "function" 
+              ? window.computeUserStatsFromHistory(localHist) 
+              : { totalPoints: 0, quizzesCompleted: 0, accuracy: 0 };
+            const myName = auth.currentUser.displayName || (auth.currentUser.email ? auth.currentUser.email.split("@")[0] : "Aspirant");
+            const myAvatar = (typeof getStoredUserAvatar === "function" ? getStoredUserAvatar() : null) || "👤";
+
+            players.push({
+              uid: currentUid,
+              name: myName,
+              avatar: myAvatar,
+              points: localStats.totalPoints,
+              quizzes: localStats.quizzesCompleted,
+              accuracy: localStats.accuracy,
+              isUser: true
+            });
+          }
+
+          // Sort descending by points, tie-break by accuracy, then quizzes
+          players.sort((a, b) => {
+            if (b.points !== a.points) return b.points - a.points;
+            if (b.accuracy !== a.accuracy) return b.accuracy - a.accuracy;
+            return b.quizzes - a.quizzes;
+          });
+
+          window.cachedLeaderboard = players;
+          return players;
+
+        } catch (err) {
+          console.warn("Notice loading leaderboard from Cloud Firestore:", err.code || "", err.message || err);
+          return null;
+        }
+      };
+
+      // -------------------------------------------------------------------------
+      // CLOUD FIRESTORE QUIZ RESULT HELPERS
+      // -------------------------------------------------------------------------
+      // In-memory set of saved attempt IDs to prevent redundant writes on quick re-renders
+      const savedFirestoreAttemptIds = new Set();
+
+      window.saveQuizAttemptToFirestore = async (attemptData, cumulativeStats = null) => {
+        if (!auth?.currentUser || !db) {
+          console.log("No authenticated user, skipping Firestore quiz save.");
+          return null;
+        }
+
+        try {
+          const uid = auth.currentUser.uid;
+          const attemptId = attemptData.id || ("att_" + Date.now());
+
+          // Prevent duplicate writes in the current session
+          if (savedFirestoreAttemptIds.has(attemptId)) {
+            console.log("ℹ️ Attempt already recorded in Cloud Firestore in this session:", attemptId);
+            return attemptId;
+          }
+
+          const docRef = doc(db, "users", uid, "quizAttempts", attemptId);
+
+          let quizType = "practice";
+          if (attemptData.difficulty === "pyq" || (attemptData.category && attemptData.category.includes("PYQ"))) {
+            quizType = "pyq";
+          } else if (attemptData.category && attemptData.category !== "All Categories" && attemptData.category !== "General Knowledge") {
+            quizType = "category-drill";
+          }
+
+          const payload = {
+            userId: uid,
+            quizType: quizType,
+            category: attemptData.category || "General Knowledge",
+            quizName: attemptData.category || "General Knowledge",
+            difficulty: attemptData.difficulty || "standard",
+            score: Number(attemptData.score !== undefined ? attemptData.score : (attemptData.correctAnswers || 0)),
+            correctAnswers: Number(attemptData.correctAnswers !== undefined ? attemptData.correctAnswers : (attemptData.score || 0)),
+            totalQuestions: Number(attemptData.totalQuestions || 10),
+            questionsAnswered: Number(attemptData.questionsAnswered !== undefined ? attemptData.questionsAnswered : (attemptData.totalQuestions || 10)),
+            percentage: Number(attemptData.percentage !== undefined ? attemptData.percentage : 0),
+            points: Number(attemptData.points || 0),
+            dateTime: attemptData.dateTime || "",
+            dateString: attemptData.dateString || "",
+            isTimeout: Boolean(attemptData.isTimeout),
+            categoryBreakdown: attemptData.categoryBreakdown || {},
+            completedAt: serverTimestamp()
+          };
+
+          // Attach PYQ exam details if available
+          if (attemptData.examId) payload.examId = attemptData.examId;
+          if (attemptData.examTitle) payload.examTitle = attemptData.examTitle;
+          if (attemptData.year) payload.year = attemptData.year;
+
+          await setDoc(docRef, payload, { merge: true });
+          savedFirestoreAttemptIds.add(attemptId);
+          console.log("☁️ Quiz attempt saved to Cloud Firestore successfully:", attemptId);
+
+          // Update real practice streak in users/{uid}
+          try {
+            await window.updateUserDailyStreakInFirestore(uid, payload.dateString);
+          } catch (streakErr) {
+            console.warn("Notice updating streak after attempt save:", streakErr);
+          }
+
+          // Update real leaderboard aggregate stats in users/{uid}
+          try {
+            const stats = cumulativeStats || (typeof window.computeUserStatsFromHistory === "function"
+              ? window.computeUserStatsFromHistory(window.loadQuizHistory())
+              : null);
+            if (stats) {
+              await window.updateUserLeaderboardStatsInFirestore(uid, stats);
+            }
+            // Refresh leaderboard live
+            if (typeof window.fetchLeaderboardFromFirestore === "function") {
+              const updatedPlayers = await window.fetchLeaderboardFromFirestore();
+              if (updatedPlayers && typeof window.renderLeaderboardSection === "function") {
+                const hist = typeof window.loadQuizHistory === "function" ? window.loadQuizHistory() : [];
+                window.renderLeaderboardSection(hist, stats?.totalPoints || 0, stats?.quizzesCompleted || 0, stats?.accuracy || 0, updatedPlayers);
+              }
+            }
+          } catch (leadErr) {
+            console.warn("Notice updating leaderboard stats after attempt save:", leadErr);
+          }
+
+          return attemptId;
+
+        } catch (err) {
+          console.error("❌ Cloud Firestore quiz attempt write failed:", err.code || "", err.message || err);
+          return null;
+        }
+      };
+
+      window.fetchQuizHistoryFromFirestore = async (maxLimit = 50) => {
+        if (!auth?.currentUser || !db) {
+          return null;
+        }
+
+        try {
+          const uid = auth.currentUser.uid;
+          const attemptsRef = collection(db, "users", uid, "quizAttempts");
+          let snap;
+          try {
+            const q = query(attemptsRef, orderBy("completedAt", "desc"), limit(maxLimit));
+            snap = await getDocs(q);
+          } catch (e) {
+            snap = await getDocs(attemptsRef);
+          }
+
+          if (!snap || snap.empty) {
+            return [];
+          }
+
+          const firestoreHistory = [];
+          snap.forEach(d => {
+            const data = d.data();
+            const ts = data.completedAt?.toMillis ? data.completedAt.toMillis() : (data.timestamp || Date.now());
+            firestoreHistory.push({
+              id: d.id,
+              ...data,
+              timestamp: ts
+            });
+          });
+
+          firestoreHistory.sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
+          return firestoreHistory;
+
+        } catch (err) {
+          console.warn("Notice reading quiz history from Firestore:", err.message || err);
+          return null;
+        }
+      };
+
+      // Save Profile Edit Form
+      profileEditForm?.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const newName = profileNameInput?.value.trim();
+        if (!newName) {
+          if (profileFeedback) {
+            profileFeedback.textContent = "Please enter a valid display name.";
+            profileFeedback.className = "profile-feedback error";
+            profileFeedback.classList.remove("hidden");
+          }
+          return;
+        }
+
+        const selectedAvatarBtn = document.querySelector(".avatar-option-btn.active");
+        const selectedAvatar = selectedAvatarBtn ? selectedAvatarBtn.dataset.avatar : "👤";
+
+        setButtonLoading(profileSaveBtn, profileSaveSpinner, profileSaveText, true, "Save Changes", "Saving...");
+
+        try {
+          // 1. Always update Firebase Authentication display name
+          if (auth.currentUser) {
+            await updateProfile(auth.currentUser, {
+              displayName: newName
+            });
+          }
+
+          // 2. Always persist in local storage cache
+          setStoredUserName(newName, auth.currentUser?.uid);
+          setStoredUserAvatar(selectedAvatar, auth.currentUser?.uid);
+
+          // 3. Immediately reflect new name and avatar across all UI elements
+          updateProfileUI(auth.currentUser, newName, selectedAvatar);
+
+          // 4. Try synchronizing to Cloud Firestore users/{uid} document
+          let firestoreSynced = false;
+          let firestoreErrorReason = null;
+          if (auth.currentUser && db) {
+            try {
+              const userDocRef = doc(db, "users", auth.currentUser.uid);
+              await setDoc(userDocRef, {
+                displayName: newName,
+                avatar: selectedAvatar,
+                email: auth.currentUser.email,
+                updatedAt: serverTimestamp()
+              }, { merge: true });
+              firestoreSynced = true;
+              console.log("☁️ Profile synchronized with Cloud Firestore successfully!");
+            } catch (firestoreErr) {
+              firestoreErrorReason = firestoreErr.code || firestoreErr.message || "permission-denied";
+              console.error("❌ Cloud Firestore profile save failed:", firestoreErr);
+            }
+          }
+
+          if (profileFeedback) {
+            if (firestoreSynced) {
+              profileFeedback.textContent = "Profile updated & synced to Cloud Firestore! ✅";
+              profileFeedback.className = "profile-feedback success";
+              profileFeedback.classList.remove("hidden");
+              setTimeout(() => {
+                resetProfileForm();
+              }, 1200);
+            } else if (firestoreErrorReason) {
+              profileFeedback.textContent = `Saved locally, but Firestore write failed (${firestoreErrorReason}). Check Security Rules in Firebase Console! ⚠️`;
+              profileFeedback.className = "profile-feedback warning";
+              profileFeedback.classList.remove("hidden");
+            } else {
+              profileFeedback.textContent = "Profile updated successfully! ✅";
+              profileFeedback.className = "profile-feedback success";
+              profileFeedback.classList.remove("hidden");
+              setTimeout(() => {
+                resetProfileForm();
+              }, 1200);
+            }
+          }
+
+        } catch (error) {
+          console.error("Profile update error:", error);
+          if (profileFeedback) {
+            profileFeedback.textContent = "Could not update profile. " + (error?.message || "Please try again.");
+            profileFeedback.className = "profile-feedback error";
+            profileFeedback.classList.remove("hidden");
+          }
+        } finally {
+          setButtonLoading(profileSaveBtn, profileSaveSpinner, profileSaveText, false, "Save Changes", "Saving...");
+        }
+      });
+
+      // 4. Sign Out Action
+      mainSignoutBtn?.addEventListener("click", async () => {
+        try {
+          // If a quiz is running, confirm before ending
+          if (window.timerInterval) {
+            const leave = confirm("A quiz session is active. Signing out will forfeit your current quiz progress. Proceed?");
+            if (!leave) return;
+            if (typeof window.stopTimer === "function") window.stopTimer();
+          }
+          if (typeof window.resetUserAppState === "function") {
+            window.resetUserAppState({ keepActiveUser: false });
+          }
+          savedFirestoreAttemptIds.clear();
+          await signOut(auth);
+          // onAuthStateChanged handles switching back to authPage!
+        } catch (error) {
+          console.error("Sign-out error:", error);
+          alert("Error signing out. Please try again.");
+        }
+      });
+
+      // -------------------------------------------------------------------------
+      // AUTH STATE OBSERVER (Gatekeeper & Session Persistence)
+      // -------------------------------------------------------------------------
+      let currentAuthenticatedUid = null;
+
+      onAuthStateChanged(auth, async (user) => {
+        // Hide the initial loading gate
+        authLoadingScreen?.classList.add("hidden");
+
+        if (user) {
+          // USER IS AUTHENTICATED -> Reveal Main Website, Hide Auth Page
+          const isNewUserSession = currentAuthenticatedUid !== user.uid;
+          currentAuthenticatedUid = user.uid;
+          window.activeAuthUserId = user.uid;
+
+          console.log("👤 Authenticated user session:", user.email, `(uid: ${user.uid})`);
+
+          // Purge legacy unscoped items so they never leak into current user
+          try {
+            localStorage.removeItem("psc_quiz_history");
+            localStorage.removeItem("psc_quiz_firestore_streak");
+            localStorage.removeItem("psc_quiz_user_name");
+            localStorage.removeItem("psc_quiz_user_avatar");
+          } catch (_) {}
+
+          // If switching to a different user, clear prior in-memory session data immediately
+          if (isNewUserSession) {
+            if (typeof window.resetUserAppState === "function") {
+              window.resetUserAppState({ keepActiveUser: true });
+            }
+            savedFirestoreAttemptIds.clear();
+          }
+
+          authPage?.classList.add("hidden");
+          appContainer?.classList.remove("hidden");
+
+          // Fast immediate UI render for this specific user
+          updateProfileUI(user);
+
+          // Initial immediate render with this user's cached history (or empty if new)
+          if (typeof window.renderDashboard === "function") window.renderDashboard();
+          if (typeof window.renderResultsPage === "function") window.renderResultsPage(false);
+
+          // Synchronize with Firestore profile document in users/{uid}
+          syncUserProfileWithFirestore(user).catch(err => {
+            console.warn("Async Firestore user sync notice:", err);
+          });
+
+          // Fetch user's real quiz history from Cloud Firestore
+          if (typeof window.fetchQuizHistoryFromFirestore === "function") {
+            window.fetchQuizHistoryFromFirestore().then(async (cloudHistory) => {
+              const safeHistory = Array.isArray(cloudHistory) ? cloudHistory : [];
+              console.log(`☁️ Loaded ${safeHistory.length} quiz attempts from Cloud Firestore for user ${user.uid}`);
+
+              // Store strictly in this user's UID-scoped local storage key
+              const userStorageKey = `psc_quiz_history_${user.uid}`;
+              try {
+                localStorage.setItem(userStorageKey, JSON.stringify(safeHistory));
+              } catch (_) {}
+
+              if (safeHistory.length > 0) {
+                // If user doesn't have lastPracticeDate in users/{uid} yet, backfill streak from attempts
+                if ((!window.currentUserStreak || !window.currentUserStreak.lastPracticeDate) && user?.uid) {
+                  try {
+                    const latestDate = safeHistory[0].dateString;
+                    if (latestDate) {
+                      await window.updateUserDailyStreakInFirestore(user.uid, latestDate);
+                    }
+                  } catch (_) {}
+                }
+
+                // Backfill cumulative leaderboard statistics if needed
+                if (user?.uid && typeof window.computeUserStatsFromHistory === "function") {
+                  try {
+                    const stats = window.computeUserStatsFromHistory(safeHistory);
+                    await window.updateUserLeaderboardStatsInFirestore(user.uid, stats);
+                  } catch (_) {}
+                }
+              }
+
+              // Always re-render dashboard and results after Firestore history loads
+              if (typeof window.renderDashboard === "function") window.renderDashboard();
+              if (typeof window.renderResultsPage === "function") window.renderResultsPage(false);
+
+              // Load and display live leaderboard from Firestore
+              if (typeof window.fetchLeaderboardFromFirestore === "function") {
+                window.fetchLeaderboardFromFirestore().then(players => {
+                  if (players && typeof window.renderLeaderboardSection === "function") {
+                    const hist = typeof window.loadQuizHistory === "function" ? window.loadQuizHistory() : [];
+                    const stats = typeof window.computeUserStatsFromHistory === "function" ? window.computeUserStatsFromHistory(hist) : { totalPoints: 0, quizzesCompleted: 0, accuracy: 0 };
+                    window.renderLeaderboardSection(hist, stats.totalPoints, stats.quizzesCompleted, stats.accuracy, players);
+                  }
+                }).catch(err => {
+                  console.warn("Notice loading initial leaderboard on login:", err);
+                });
+              }
+            }).catch(err => {
+              console.warn("Notice syncing Firestore history on login:", err);
+            });
+          }
+
+          // Clear any auth form inputs
+          formSignin?.reset();
+          formSignup?.reset();
+          formReset?.reset();
+          hideAlert();
+
+        } else {
+          // USER IS NOT AUTHENTICATED -> Guard Main Website, Reveal Auth Page
+          console.log("👤 No authenticated user. Redirecting to Login page.");
+          currentAuthenticatedUid = null;
+          window.activeAuthUserId = null;
+
+          // Reset all user session state and clear UI
+          if (typeof window.resetUserAppState === "function") {
+            window.resetUserAppState({ keepActiveUser: false });
+          }
+          savedFirestoreAttemptIds.clear();
+
+          // Clean up legacy unscoped items
+          try {
+            localStorage.removeItem("psc_quiz_history");
+            localStorage.removeItem("psc_quiz_firestore_streak");
+            localStorage.removeItem("psc_quiz_user_name");
+            localStorage.removeItem("psc_quiz_user_avatar");
+          } catch (_) {}
+
+          if (typeof window.applyStreakToUI === "function") {
+            window.applyStreakToUI({ currentStreak: 0, longestStreak: 0, lastPracticeDate: null, recentPracticeDates: [] });
+          }
+          if (typeof window.renderLeaderboardSection === "function") {
+            window.renderLeaderboardSection([], 0, 0, 0, []);
+          }
+
+          appContainer?.classList.add("hidden");
+          authPage?.classList.remove("hidden");
+
+          profileDropdownCard?.classList.add("hidden");
+          profileToggleBtn?.setAttribute("aria-expanded", "false");
+          resetProfileForm();
+          updateProfileUI(null);
+
+          // Default to signin tab
+          switchTab("signin");
+        }
+      });
+
+      // Streak Testing & Simulation Suite for Console Verification
+      window.quizStreakDebug = {
+        getStreak: async () => {
+          if (!auth?.currentUser || !db) {
+            return {
+              memory: window.currentUserStreak || null,
+              message: "No authenticated user. Please sign in first."
+            };
+          }
+          try {
+            const snap = await getDoc(doc(db, "users", auth.currentUser.uid));
+            return {
+              firestore: snap.exists() ? snap.data() : null,
+              memory: window.currentUserStreak || null
+            };
+          } catch (e) {
+            return { error: e.message };
+          }
+        },
+        simulatePractice: async (customDateStr) => {
+          if (!auth?.currentUser) return "Please sign in to test streak calculation.";
+          return await window.updateUserDailyStreakInFirestore(auth.currentUser.uid, customDateStr);
+        },
+        resetStreak: async () => {
+          if (!auth?.currentUser || !db) return "Please sign in first.";
+          const emptyStreak = {
+            currentStreak: 0,
+            longestStreak: 0,
+            lastPracticeDate: null,
+            recentPracticeDates: []
+          };
+          await setDoc(doc(db, "users", auth.currentUser.uid), emptyStreak, { merge: true });
+          window.currentUserStreak = emptyStreak;
+          const userStreakKey = auth?.currentUser?.uid ? `psc_quiz_firestore_streak_${auth.currentUser.uid}` : "psc_quiz_firestore_streak_guest";
+          try { localStorage.setItem(userStreakKey, JSON.stringify(emptyStreak)); } catch (_) {}
+          if (typeof window.applyStreakToUI === "function") window.applyStreakToUI(emptyStreak);
+          return "Streak reset to 0 in Firestore & UI successfully!";
+        }
+      };
+
+      // Leaderboard Testing & Inspection Suite for Console Verification
+      window.quizLeaderboardDebug = {
+        getLeaderboard: async () => {
+          return await window.fetchLeaderboardFromFirestore();
+        },
+        syncMyStats: async () => {
+          if (!auth?.currentUser || !db) return "Please sign in first.";
+          const hist = typeof window.loadQuizHistory === "function" ? window.loadQuizHistory() : [];
+          const stats = typeof window.computeUserStatsFromHistory === "function"
+            ? window.computeUserStatsFromHistory(hist)
+            : null;
+          if (!stats) return "No history found to calculate stats.";
+          const res = await window.updateUserLeaderboardStatsInFirestore(auth.currentUser.uid, stats);
+          const players = await window.fetchLeaderboardFromFirestore();
+          if (typeof window.renderLeaderboardSection === "function") {
+            window.renderLeaderboardSection(hist, stats.totalPoints, stats.quizzesCompleted, stats.accuracy, players);
+          }
+          return { message: "Leaderboard stats synced to Firestore successfully!", stats: res, players };
+        },
+        inspectUserDoc: async () => {
+          if (!auth?.currentUser || !db) return "Please sign in first.";
+          const snap = await getDoc(doc(db, "users", auth.currentUser.uid));
+          return snap.exists() ? snap.data() : "User document not found";
+        }
+      };
+
+      console.log("🔥 Firebase Auth Gatekeeper loaded successfully!");
+      console.log("Connected to project:", firebaseConfig.projectId);
+    </script>
+</body>
+</html>
