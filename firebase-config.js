@@ -30,16 +30,37 @@ import {
   limit 
 } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
 
-// Your web app's Firebase configuration
-export const firebaseConfig = {
-  apiKey: "AIzaSyAPArly6o8LvKKIU6wlT0O2lmMmvYKvREE",
-  authDomain: "psc-quiz-9206d.firebaseapp.com",
-  projectId: "psc-quiz-9206d",
-  storageBucket: "psc-quiz-9206d.firebasestorage.app",
-  messagingSenderId: "203788771244",
-  appId: "1:203788771244:web:6c1fed207de05fe44f2409",
-  measurementId: "G-8WRZRJLQZK"
+// Await environment variable loading if loader promise exists
+if (typeof window !== "undefined" && window.__envPromise) {
+  try {
+    await window.__envPromise;
+  } catch (_) {}
+}
+
+// Helper to safely read configuration from environment (.env or window.__ENV__)
+const getEnvVal = (key, fallback = "") => {
+  if (typeof window !== "undefined" && typeof window.getEnv === "function") {
+    return window.getEnv(key, fallback);
+  }
+  if (typeof window !== "undefined" && window.__ENV__ && window.__ENV__[key]) {
+    return window.__ENV__[key];
+  }
+  return fallback;
 };
+
+// Your web app's Firebase configuration resolved dynamically from environment (.env)
+export const firebaseConfig = (typeof window !== "undefined" && typeof window.getFirebaseConfigFromEnv === "function")
+  ? window.getFirebaseConfigFromEnv()
+  : {
+      apiKey: getEnvVal("FIREBASE_API_KEY"),
+      authDomain: getEnvVal("FIREBASE_AUTH_DOMAIN"),
+      projectId: getEnvVal("FIREBASE_PROJECT_ID"),
+      storageBucket: getEnvVal("FIREBASE_STORAGE_BUCKET"),
+      messagingSenderId: getEnvVal("FIREBASE_MESSAGING_SENDER_ID"),
+      appId: getEnvVal("FIREBASE_APP_ID"),
+      measurementId: getEnvVal("FIREBASE_MEASUREMENT_ID")
+    };
+
 
 // Initialize Firebase App
 export const app = initializeApp(firebaseConfig);

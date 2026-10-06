@@ -1179,6 +1179,9 @@
 
     </div>
 
+    <!-- Environment configuration loader (.env support) -->
+    <script src="env.js"></script>
+
     <!-- Include JavaScript files (questions first, then application logic) -->
     <script src="questions.js"></script>
     <script src="app.js"></script>
@@ -1209,16 +1212,25 @@
         limit 
       } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
 
-      // Firebase configuration
-      const firebaseConfig = {
-        apiKey: "AIzaSyAPArly6o8LvKKIU6wlT0O2lmMmvYKvREE",
-        authDomain: "psc-quiz-9206d.firebaseapp.com",
-        projectId: "psc-quiz-9206d",
-        storageBucket: "psc-quiz-9206d.firebasestorage.app",
-        messagingSenderId: "203788771244",
-        appId: "1:203788771244:web:6c1fed207de05fe44f2409",
-        measurementId: "G-8WRZRJLQZK"
-      };
+      // Await environment variable loading if loader promise exists
+      if (typeof window !== "undefined" && window.__envPromise) {
+        try {
+          await window.__envPromise;
+        } catch (_) {}
+      }
+
+      // Firebase configuration loaded dynamically from environment (.env / env.js)
+      const firebaseConfig = (typeof window !== "undefined" && typeof window.getFirebaseConfigFromEnv === "function")
+        ? window.getFirebaseConfigFromEnv()
+        : {
+            apiKey: window.getEnv ? window.getEnv("FIREBASE_API_KEY") : (window.__ENV__?.FIREBASE_API_KEY || ""),
+            authDomain: window.getEnv ? window.getEnv("FIREBASE_AUTH_DOMAIN") : (window.__ENV__?.FIREBASE_AUTH_DOMAIN || ""),
+            projectId: window.getEnv ? window.getEnv("FIREBASE_PROJECT_ID") : (window.__ENV__?.FIREBASE_PROJECT_ID || ""),
+            storageBucket: window.getEnv ? window.getEnv("FIREBASE_STORAGE_BUCKET") : (window.__ENV__?.FIREBASE_STORAGE_BUCKET || ""),
+            messagingSenderId: window.getEnv ? window.getEnv("FIREBASE_MESSAGING_SENDER_ID") : (window.__ENV__?.FIREBASE_MESSAGING_SENDER_ID || ""),
+            appId: window.getEnv ? window.getEnv("FIREBASE_APP_ID") : (window.__ENV__?.FIREBASE_APP_ID || ""),
+            measurementId: window.getEnv ? window.getEnv("FIREBASE_MEASUREMENT_ID") : (window.__ENV__?.FIREBASE_MEASUREMENT_ID || "")
+          };
 
       // Initialize Firebase App & Auth
       const app = initializeApp(firebaseConfig);
